@@ -11,16 +11,26 @@
     <title>User Login</title>
 </head>
 <body>
-<div>
-    <label for="username" > Username </label>
-    <input  type="text" name="username" id="username" />
-</div>
-<div>
-    <label> Password </label>
-    <input type="text" name="password" />
-</div>
 
-<button type="submit" name="submit" value="login">Login</button>
+<nav>
+    <ul>
+        <li><a href="index.jsp">Home</a></li>
+        <li><a href="#">Login</a></li>
+    </ul>
+</nav>
+<section>
+    <div>
+        <label for="username" > Username </label>
+        <input  type="text" name="username" id="username" />
+    </div>
+    <div>
+        <label> Password </label>
+        <input type="text" name="password" />
+    </div>
+
+    <button type="submit" name="submit" value="login">Login</button>
+</section>
+
 
 </body>
 </html>
