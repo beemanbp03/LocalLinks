@@ -1,21 +1,43 @@
-package src.main.UserBean;
+package entity;
 
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  * The User class contains all relevent information for a single field in the User table
  *
  */
-public class User(int userID, String userName, String password, String email, String firstName, String lastName, int zipCode) {
-    int userID;
-    String userName;
-    String password;
-    String email;
-    String firstName;
-    String lastName;
-    int zipCode;
+@Entity(name = "User")
+@Table(name = "user")
+public class User {
+    @Column(name = "user_id")
+    private int userID;
+
+    @Column(name = "user_name")
+    private String userName;
+
+    @Column(name="password")
+    private String password;
+
+    @Column(name="email")
+    private String email;
+
+    @Column(name="first_name")
+    private String firstName;
+
+    @Column(name="last_name")
+    private String lastName;
+
+    @Column(name="zip_code")
+    private int zipCode;
 
     /**
-     * Class Constructor for User
+     * Instantiates a new User
+     */
+    public User() {
+    }
+
+    /**
+     * Instantiates a new User given params
      * @param userID int
      * @param userName String
      * @param password String
@@ -23,13 +45,13 @@ public class User(int userID, String userName, String password, String email, St
      * @param lastName String
      * @param zipCode int
      */
-    private User(int userID, String userName, String password, String firstName, String lastName, int zipCode) {
-        this.userID = 0;
-        this.userName = "name not chosen...";
-        this.userEmail = "email not chosen...";
-        this.firstName = "first name not chosen...";
-        this.lastName = "last name not chosen...";
-        this.zipCode = 0000;
+    private User(int userID, String userName, String password, String email, String firstName, String lastName, int zipCode) {
+        this.userID = userID;
+        this.userName = userName;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.zipCode = zipCode;
     }
 
     /**
@@ -142,5 +164,18 @@ public class User(int userID, String userName, String password, String email, St
      */
     public void setZipCode(int zipCode) {
         this.zipCode = zipCode;
+    }
+
+    @Override
+    public String toString() {
+        return "User {" +
+                "userID=" + userID + "\"" +
+                ", userName=" + userName + "\"" +
+                ", password=" + password + "\"" +
+                ", email=" + email + "\"" +
+                ", firstName=" + firstName + "\"" +
+                ", lastName=" + lastName + "\"" +
+                ", zipCode=" + zipCode + "\"" +
+                "}";
     }
 }
