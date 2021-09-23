@@ -1,5 +1,6 @@
 package controller;
 
+
 import persistence.UserDao;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,7 +19,7 @@ import java.io.IOException;
         urlPatterns = {"/searchUser"}
 )
 
-public class SearchUser extends HttpServlet {
+public class UserSearch extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
