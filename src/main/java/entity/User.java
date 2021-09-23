@@ -1,5 +1,7 @@
 package entity;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -9,6 +11,12 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity(name = "User")
 @Table(name = "user")
 public class User {
+
+    /**
+     * Instantiate a logger object so that we can use Log4j
+     */
+    private final Logger logger = LogManager.getLogger(this.getClass());
+
     @Column(name = "user_id")
     private int userID;
 
