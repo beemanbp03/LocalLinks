@@ -4,6 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
+
 /**
  * The User class contains all relevent information for a single field in the User table
  *
@@ -17,7 +19,9 @@ public class User {
      */
     private final Logger logger = LogManager.getLogger(this.getClass());
 
-    @Column(name = "user_id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     private int userID;
 
     @Column(name = "user_name")
