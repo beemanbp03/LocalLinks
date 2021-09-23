@@ -9,6 +9,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<script type="text/javascript" class="init">
+    $(document).ready( function() {
+      $('#userTable').DataTable();
+    } );
+</script>
 <html>
 <head>
   <meta charset="utf-8">
@@ -17,13 +22,10 @@
   <title>Results Page</title>
 
   <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-  <!-- Optional theme -->
-  <link rel="stylesheet" href="https://bootswatch.com/readable/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 
   <!-- Latest compiled and minified JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
 </head>
 
 </head>
@@ -31,18 +33,26 @@
 
   <div class="container-fluid">
     <h2>Search Results: </h2>
-    <table>
+    <table id="userTable" class="display" cellspacing="0" width="100%">
       <thead>
-      <th>Name</th>
-      <th>User</th>
-      <th>Age</th>
+      <th>ID</th>
+      <th>Username</th>
+      <th>Password</th>
+      <th>Email</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>ZIP Code</th>
       </thead>
       <tbody>
       <c:forEach var="user" items="${users}">
         <tr>
+          <td>${user.userID}</td>
+          <td>${user.userName}</td>
+          <td>${user.password}</td>
+          <td>${user.email}</td>
           <td>${user.firstName}</td>
           <td>${user.lastName}</td>
-          <td>${user.age}</td>
+          <td>${user.zipCode}</td>
         </tr>
 
       </c:forEach>

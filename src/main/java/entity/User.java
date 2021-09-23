@@ -1,7 +1,5 @@
 package entity;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -14,15 +12,10 @@ import javax.persistence.*;
 @Table(name = "user")
 public class User {
 
-    /**
-     * Instantiate a logger object so that we can use Log4j
-     */
-    private final Logger logger = LogManager.getLogger(this.getClass());
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
-    private int userID;
+    private int id;
 
     @Column(name = "user_name")
     private String userName;
@@ -30,7 +23,7 @@ public class User {
     @Column(name="password")
     private String password;
 
-    @Column(name="email")
+    @Column(name= "email")
     private String email;
 
     @Column(name="first_name")
@@ -50,16 +43,18 @@ public class User {
 
     /**
      * Instantiates a new User given params
-     * @param userID int
+     * @param id int
      * @param userName String
      * @param password String
+     * @param email String
      * @param firstName String
      * @param lastName String
      * @param zipCode int
      */
-    private User(int userID, String userName, String password, String email, String firstName, String lastName, int zipCode) {
-        this.userID = userID;
+    private User(int id, String userName, String password, String email, String firstName, String lastName, int zipCode) {
+        this.id= id;
         this.userName = userName;
+        this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -71,15 +66,15 @@ public class User {
      * @return userID int value
      */
     public int getUserID() {
-        return userID;
+        return id;
     }
 
     /**
      * SETTER for userID instance variable
-     * @param userID int value
+     * @param id int value
      */
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUserID(int id) {
+        this.id = id;
     }
 
     /**
@@ -181,7 +176,7 @@ public class User {
     @Override
     public String toString() {
         return "User {" +
-                "userID=" + userID + "\"" +
+                "userID=" + id + "\"" +
                 ", userName=" + userName + "\"" +
                 ", password=" + password + "\"" +
                 ", email=" + email + "\"" +

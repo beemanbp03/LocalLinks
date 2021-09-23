@@ -5,8 +5,9 @@
 
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:mysql://localhost:3306/sample</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/LocalLinks</property>
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
 
         <property name="connection.username">root</property>
         <property name="connection.password">student</property>
