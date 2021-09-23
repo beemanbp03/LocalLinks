@@ -43,7 +43,6 @@ public class User {
 
     /**
      * Instantiates a new User given params
-     * @param id int
      * @param userName String
      * @param password String
      * @param email String
@@ -51,8 +50,7 @@ public class User {
      * @param lastName String
      * @param zipCode int
      */
-    private User(int id, String userName, String password, String email, String firstName, String lastName, int zipCode) {
-        this.id= id;
+    public User(String userName, String password, String email, String firstName, String lastName, int zipCode) {
         this.userName = userName;
         this.password = password;
         this.email = email;
