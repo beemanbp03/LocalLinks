@@ -16,6 +16,7 @@
         <ul>
             <li><a href="#">Home</a></li>
             <li><a href="login.jsp">Login</a></li>
+            <li><a href="searchUsers.jsp">Search Users</a></li>
         </ul>
     </nav>
     <section>
