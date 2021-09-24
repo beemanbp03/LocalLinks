@@ -1,4 +1,4 @@
-package util;
+package test.util;
 
 
 import org.apache.logging.log4j.LogManager;
@@ -24,7 +24,7 @@ public class Database {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
     // create an object of the class Database
-    private static Database instance = new Database();
+    private static final Database instance = new Database();
 
     private Properties properties;
 
@@ -33,12 +33,13 @@ public class Database {
     // private constructor prevents instantiating this class anywhere else
     private Database() {
         loadProperties();
+
     }
 
     private void loadProperties() {
         properties = new Properties();
         try {
-            properties.load (this.getClass().getResourceAsStream("/database.properties"));
+            properties.load (this.getClass().getResourceAsStream("/testDatabase.properties"));
         } catch (IOException ioe) {
             System.out.println("Database.loadProperties()...Cannot load the properties file");
             ioe.printStackTrace();

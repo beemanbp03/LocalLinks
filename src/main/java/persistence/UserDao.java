@@ -32,15 +32,6 @@ public class UserDao {
         return user;
     }
 
-    /**
-     * update user
-     * @param user  User to be inserted or updated
-     */
-    public void saveOrUpdate(User user) {
-        Session session = sessionFactory.openSession();
-        session.saveOrUpdate(user);
-        session.close();
-    }
 
     /**
      * update user
@@ -64,6 +55,18 @@ public class UserDao {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.delete(user);
+        transaction.commit();
+        session.close();
+    }
+
+    /**
+     * update user
+     * @param user  User to be inserted or updated
+     */
+    public void saveOrUpdate(User user) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.saveOrUpdate(user);
         transaction.commit();
         session.close();
     }

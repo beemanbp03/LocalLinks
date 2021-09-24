@@ -1,8 +1,10 @@
-package persistence;
+package test.persistence;
 
+import persistence.UserDao;
 import entity.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import test.util.Database;
 
 import java.util.List;
 
@@ -14,6 +16,8 @@ class UserDaoTest {
     @BeforeEach
     void setUp() {
         dao = new UserDao();
+        Database database = Database.getInstance();
+        database.runSQL("cleandb.sql");
     }
 
     /**
@@ -22,7 +26,7 @@ class UserDaoTest {
     @Test
     void getAllUsersSuccess() {
         List<User> users = dao.getAllUsers();
-        assertEquals(1, users.size());
+        assertEquals(3, users.size());
     }
 
     /**
@@ -31,7 +35,7 @@ class UserDaoTest {
     @Test
     void getUsersByLastNameSuccess() {
         List<User> users = dao.getUsersByLastName("Beeman");
-        assertEquals(1, users.size());
+        assertEquals(2, users.size());
     }
 
     /**
@@ -49,6 +53,7 @@ class UserDaoTest {
         String newLastName = "Williams";
         User userToUpdate = dao.getUserById(2);
         userToUpdate.setLastName(newLastName);
+        dao.saveOrUpdate(userToUpdate);
         User retrievedUser = dao.getUserById(2);
         assertEquals(newLastName, retrievedUser.getLastName());
     }
@@ -58,11 +63,11 @@ class UserDaoTest {
      */
     @Test
     void insertSuccess() {
-        User newUser = new User("dexter115", "DexterIsCool", "dexter@madisoncollege.edu", "Dexter", "Beeman", 53704);
+        User newUser = new User("Packers2021", "Lombardi", "kuhn@madisoncollege.edu", "John", "Kuhn", 53932);
         int id = dao.insert(newUser);
         assertNotEquals(0, id);
         User insertedUser = dao.getUserById(id);
-        assertEquals("Dexter", insertedUser.getFirstName());
+        assertEquals("John", insertedUser.getFirstName());
     }
 
     /**
@@ -70,8 +75,8 @@ class UserDaoTest {
      */
     @Test
     void deleteSuccess() {
-        dao.delete(dao.getUserById(2));
-        assertNull(dao.getUserById(2));
+        dao.delete(dao.getUserById(1));
+        assertNull(dao.getUserById(1));
     }
 
     /**
@@ -79,9 +84,8 @@ class UserDaoTest {
      */
     @Test
     void getByPropertyEqualSuccess() {
-        List<User> users = dao.getByPropertyLike("lastName", "Curry");
-        assertEquals(1, users.size());
-        assertEquals(3, users.get(0).getUserID());
+        List<User> users = dao.getByPropertyLike("lastName", "Beeman");
+        assertEquals(2, users.size());
     }
 
     /**
@@ -89,7 +93,7 @@ class UserDaoTest {
      */
     @Test
     void getByPropertyLikeSuccess() {
-        List<User> users = dao.getByPropertyLike("lastName", "c");
-        assertEquals(3, users.size());
+        List<User> users = dao.getByPropertyLike("lastName", "d");
+        assertEquals(1, users.size());
     }
 }
