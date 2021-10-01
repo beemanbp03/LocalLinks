@@ -2,6 +2,7 @@ package test.persistence;
 
 import persistence.UserDao;
 import entity.User;
+import entity.Favorite;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import test.util.Database;
@@ -95,5 +96,22 @@ class UserDaoTest {
     void getByPropertyLikeSuccess() {
         List<User> users = dao.getByPropertyLike("lastName", "d");
         assertEquals(1, users.size());
+    }
+
+    /**
+     * Verifies successful insert with favorite
+     */
+    @Test
+    void insertWithFavoriteSuccess() {
+        User newUser = new User("Zyn123", "student", "adk3223@madisoncollege.edu", "Mike", "Tomlin", 34596);
+        Favorite newFavorite = new Favorite(newUser, "Vitense", 432345445, "9543 Whitney way", 53765, "WI", 20.43, 3.21);
+
+        newUser.addFavorite(newFavorite);
+
+        int id = dao.insert(newUser);
+        assertNotEquals(0, id);
+        User insertedUser = dao.getUserById(id);
+        assertEquals("Zyn123", insertedUser.getUserName());
+        assertEquals(1, insertedUser.getFavorites().size());
     }
 }

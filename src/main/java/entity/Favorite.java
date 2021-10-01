@@ -1,14 +1,14 @@
 package entity;
 
 import org.hibernate.annotations.GenericGenerator;
-
+import entity.User;
 import javax.persistence.*;
 
 /**
  * This class contains all relevent information for a row in the 'favorites' table
  */
 
-@Entity(name = "Favorites")
+@Entity(name = "Favorite")
 @Table(name = "favorites")
 public class Favorite {
 
@@ -17,20 +17,17 @@ public class Favorite {
     @GenericGenerator(name = "native", strategy = "native")
     private int id;
 
-    @Column(name = "user_id")
-    private int user_id;
+    @ManyToOne
+    private User user;
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "phone")
-    private int phone;
+    private float phone;
 
     @Column(name = "address_1")
     private String address1;
-
-    @Column(name = "address_2")
-    private String address2;
 
     @Column(name = "zip_code")
     private int zip_code;
@@ -43,6 +40,23 @@ public class Favorite {
 
     @Column(name = "rating")
     private Double rating;
+
+    /**
+     * Instantiates a new Favorite
+     */
+    public Favorite() {
+    }
+
+    public Favorite(User user, String name, float phone, String address1, int zip_code, String state, Double distance, Double rating) {
+        this.user = user;
+        this.name = name;
+        this.phone = phone;
+        this.address1 = address1;
+        this.zip_code = zip_code;
+        this.state = state;
+        this.distance = distance;
+        this.rating = rating;
+    }
 
     /**
      * GET for ID instance variable
@@ -64,16 +78,16 @@ public class Favorite {
      * GET for USER_ID instance variable
      * @return user_id
      */
-    public int getUser_id() {
-        return user_id;
+    public User getUser() {
+        return user;
     }
 
     /**
      * SET for USER_ID instance variable
-     * @param user_id
+     * @param user
      */
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     /**
@@ -96,7 +110,7 @@ public class Favorite {
      * GET for PHONE instance variable
      * @return phone
      */
-    public int getPhone() {
+    public float getPhone() {
         return phone;
     }
 
@@ -104,7 +118,7 @@ public class Favorite {
      * SET for PHONE instance variable
      * @param phone
      */
-    public void setPhone(int phone) {
+    public void setPhone(float phone) {
         this.phone = phone;
     }
 
@@ -124,21 +138,6 @@ public class Favorite {
         this.address1 = address1;
     }
 
-    /**
-     * GET for ADDRESS2 instance variable
-     * @return address2
-     */
-    public String getAddress2() {
-        return address2;
-    }
-
-    /**
-     * SET for ADDRESS2 instance variable
-     * @param address2
-     */
-    public void setAddress2(String address2) {
-        this.address2 = address2;
-    }
 
     /**
      * GET for ZIP_CODE instance variable

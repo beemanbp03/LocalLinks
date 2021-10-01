@@ -1,7 +1,8 @@
 package entity;
 
 import org.hibernate.annotations.GenericGenerator;
-
+import java.util.*;
+import entity.Favorite;
 import javax.persistence.*;
 
 /**
@@ -34,6 +35,10 @@ public class User {
 
     @Column(name="zip_code")
     private int zipCode;
+
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<Favorite> favorites = new HashSet<>();
 
     /**
      * Instantiates a new User
@@ -170,6 +175,42 @@ public class User {
     public void setZipCode(int zipCode) {
         this.zipCode = zipCode;
     }
+
+    /**
+     * SET for favorites instance variable
+     * @return favorites HashSet
+     */
+    public Set<Favorite> getFavorites() {
+        return favorites;
+    }
+
+    /**
+     * SET for favorites instance variable
+     * @param favorites
+     */
+    public void setFavorites(Set<Favorite> favorites) {
+        this.favorites = favorites;
+    }
+
+    /**
+     * Adds a favorite object to the favorite instance variable HashSet
+     * @param newFavorite
+     */
+    public void addFavorite(Favorite newFavorite) {
+        favorites.add(newFavorite);
+        newFavorite.setUser(this);
+    }
+
+    /**
+     * Removes a favorite from the favorites instance variable HashSet
+     * @param newFavorite
+     */
+    public void removeFavorite(Favorite newFavorite) {
+        favorites.remove(newFavorite);
+        newFavorite.setUser(null);
+    }
+
+
 
     @Override
     public String toString() {
