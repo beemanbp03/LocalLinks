@@ -75,20 +75,26 @@ public class Favorite {
     }
 
     /**
-     * GET for USER_ID instance variable
-     * @return user_id
+     * GET for USER instance variable
+     * @return user
      */
     public User getUser() {
         return user;
     }
 
     /**
-     * SET for USER_ID instance variable
+     * SET for USER instance variable
      * @param user
      */
     public void setUser(User user) {
         this.user = user;
     }
+
+    /**
+     * GET for the user instance object's id instance variable
+     * @return id of user instance object
+     */
+    public int getUserId(){ return user.getId();}
 
     /**
      * GET for NAME instance variable

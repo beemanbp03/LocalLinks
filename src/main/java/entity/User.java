@@ -68,7 +68,7 @@ public class User {
      * GETTER for userID
      * @return userID int value
      */
-    public int getUserID() {
+    public int getId() {
         return id;
     }
 
@@ -76,7 +76,7 @@ public class User {
      * SETTER for userID instance variable
      * @param id int value
      */
-    public void setUserID(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 

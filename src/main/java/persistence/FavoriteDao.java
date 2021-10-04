@@ -1,17 +1,15 @@
 package persistence;
 
 import entity.Favorite;
+import entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Root;
-import java.util.List;
+import javax.persistence.criteria.*;
+import java.util.*;
 
 public class FavoriteDao {
 
@@ -49,7 +47,7 @@ public class FavoriteDao {
 
     /**
      * Delete a Favorite
-     * @param Favorite Favorite to be deleted
+     * @param  Favorite table row to be deleted
      */
     public void delete(Favorite Favorite) {
         Session session = sessionFactory.openSession();
@@ -147,7 +145,7 @@ public class FavoriteDao {
         CriteriaQuery<Favorite> query = builder.createQuery(Favorite.class);
         //builds FROM clause
         Root<Favorite> root = query.from(Favorite.class);
-        //By Name
+        //By name
         Expression<String> propertyPath = root.get("name");
         query.where(builder.like(propertyPath, "%" + name + "%"));
         //Specify running the query
@@ -156,6 +154,28 @@ public class FavoriteDao {
         session.close();
 
         return Favorites;
+    }
+
+    public Set<Favorite> getFavoritesByUserId(User user) {
+        String userId = String.valueOf(user.getId());
+        //Create Connection
+        Session session = sessionFactory.openSession();
+        //Allows to build a query for an entity
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Favorite> query = builder.createQuery(Favorite.class);
+        //builds FROM clause
+        Root<Favorite> root = query.from(Favorite.class);
+        //By user
+        Path<Favorite> propertyPath = root.join("user").get("id");
+        query.select(propertyPath);
+        //Specify running the query
+        List<Favorite> favorites = session.createQuery(query).getResultList();
+        Set<Favorite> favoritesSet = new HashSet<>(favorites);
+
+        //Close session
+        session.close();
+
+        return favoritesSet;
     }
 
 
