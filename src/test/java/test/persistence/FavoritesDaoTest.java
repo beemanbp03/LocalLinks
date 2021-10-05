@@ -88,7 +88,7 @@ public class FavoritesDaoTest {
     void insertSuccess() {
         UserDao userDao = new UserDao();
         User user = userDao.getUserById(1);
-        Favorite newFavorite = new Favorite(user, "Pairie Hills Golf Course", 608233445, "2342 Lindale ave", 53872, "WI", 3.40, 4.57);
+        Favorite newFavorite = new Favorite("Pairie Hills Golf Course", 608233445, "2342 Lindale ave", 53872, "WI", 3.40, 4.57, user);
         int id = favoriteDao.insert(newFavorite);
         assertNotEquals(0, id);
         Favorite insertedFavorite = favoriteDao.getFavoriteById(id);
@@ -121,8 +121,23 @@ public class FavoritesDaoTest {
      */
     @Test
     void getByPropertyEqualSuccess() {
-        List<Favorite> Favorites = favoriteDao.getByPropertyLike("name", "Top Golf");
-        assertEquals(1, Favorites.size());
+        //The method to test "getByPropertyEqual()"
+        List<Favorite> retrievedFavorites = favoriteDao.getByPropertyEqual("name", "Top Golf");
+
+        //Make expected Favorites and add them to the expectedFavorites ArrayList
+        List<Favorite> expectedFavorites = new ArrayList<Favorite>();
+        User expectedUser = userDao.getUserById(1);
+        Favorite expectedFavorite1 = favoriteDao.getFavoriteById(1);
+        expectedFavorite1.setId(1);
+        expectedFavorites.add(expectedFavorite1);
+
+        //Output both Lists that are about to be compared
+        logger.info("\n\nExpected: " + expectedFavorites + "\nActual: " + retrievedFavorites);
+
+        //Loop through both arrayLists for expectedFavorites and retrievedFavorites and assert they are equal
+        for (int i=0; i < retrievedFavorites.size(); i++) {
+            assertEquals(expectedFavorites.get(i), retrievedFavorites.get(i));
+        }
     }
 
     /**
@@ -130,8 +145,32 @@ public class FavoritesDaoTest {
      */
     @Test
     void getByPropertyLikeSuccess() {
-        List<Favorite> Favorites = favoriteDao.getByPropertyLike("name", "t");
-        assertEquals(1, Favorites.size());
+        List<Favorite> retrievedFavorites = favoriteDao.getByPropertyLike("name", "g");
+
+        //Make expected Favorites and add them to the expectedFavorites ArrayList
+        List<Favorite> expectedFavorites = new ArrayList<Favorite>();
+        User expectedUser = userDao.getUserById(1);
+        Favorite expectedFavorite1 = favoriteDao.getFavoriteById(1);
+        Favorite expectedFavorite2 = favoriteDao.getFavoriteById(2);
+        expectedFavorite1.setId(1);
+        expectedFavorite2.setId(2);
+        expectedFavorites.add(expectedFavorite1);
+        expectedFavorites.add(expectedFavorite2);
+
+        assertEquals(2, retrievedFavorites.size());
+
+        //Output both Lists that are about to be compared
+        logger.info("\nExpected: " + expectedFavorites.get(1) + "\nActual: " + retrievedFavorites.get(1) + "\n");
+
+        for (int i=0; i < retrievedFavorites.size(); i++) {
+            logger.info("\nRetrievedFavorite: " + retrievedFavorites.get(i) + "\n");
+        }
+
+        assertNotNull(retrievedFavorites);
+        //Loop through both arrayLists for expectedFavorites and retrievedFavorites and assert they are equal
+        for (int i=0; i < retrievedFavorites.size(); i++) {
+            assertEquals(expectedFavorites.get(i), retrievedFavorites.get(i));
+        }
     }
 
 }

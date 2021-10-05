@@ -3,6 +3,7 @@ package entity;
 import org.hibernate.annotations.GenericGenerator;
 import entity.User;
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * This class contains all relevent information for a row in the 'favorites' table
@@ -24,7 +25,7 @@ public class Favorite {
     private String name;
 
     @Column(name = "phone")
-    private float phone;
+    private long phone;
 
     @Column(name = "address_1")
     private String address1;
@@ -47,8 +48,7 @@ public class Favorite {
     public Favorite() {
     }
 
-    public Favorite(User user, String name, float phone, String address1, int zip_code, String state, Double distance, Double rating) {
-        this.user = user;
+    public Favorite(String name, long phone, String address1, int zip_code, String state, Double distance, Double rating, User user) {
         this.name = name;
         this.phone = phone;
         this.address1 = address1;
@@ -56,6 +56,7 @@ public class Favorite {
         this.state = state;
         this.distance = distance;
         this.rating = rating;
+        this.user = user;
     }
 
     /**
@@ -116,7 +117,7 @@ public class Favorite {
      * GET for PHONE instance variable
      * @return phone
      */
-    public float getPhone() {
+    public long getPhone() {
         return phone;
     }
 
@@ -124,7 +125,7 @@ public class Favorite {
      * SET for PHONE instance variable
      * @param phone
      */
-    public void setPhone(float phone) {
+    public void setPhone(long phone) {
         this.phone = phone;
     }
 
@@ -207,5 +208,26 @@ public class Favorite {
      */
     public void setRating(Double rating) {
         this.rating = rating;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Favorite favorite = (Favorite) o;
+        return id == favorite.id &&
+                phone == favorite.phone &&
+                zip_code == favorite.zip_code &&
+                Objects.equals(user, favorite.user) &&
+                Objects.equals(name, favorite.name) &&
+                Objects.equals(address1, favorite.address1) &&
+                Objects.equals(state, favorite.state) &&
+                Objects.equals(distance, favorite.distance) &&
+                Objects.equals(rating, favorite.rating);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, name, phone, address1, zip_code, state, distance, rating);
     }
 }

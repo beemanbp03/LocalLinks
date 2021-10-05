@@ -80,8 +80,8 @@ public class FavoriteDao {
        //Allows to build a query for an entity
        CriteriaBuilder builder = session.getCriteriaBuilder();
        CriteriaQuery<Favorite> query = builder.createQuery(Favorite.class);
-       //builds FROM clause
-       Root<Favorite> root = query.from(Favorite.class);
+       //Builds FROM clause
+        Root<Favorite> root = query.from(Favorite.class);
        //Specify running the query
        List<Favorite> Favorites = session.createQuery(query).getResultList();
        logger.debug("The list of all Favorites" + Favorites);
@@ -117,18 +117,24 @@ public class FavoriteDao {
     public List<Favorite> getByPropertyLike(String propertyName, String value) {
         Session session = sessionFactory.openSession();
 
-        logger.debug("Searching for Favorite with {} = {}",  propertyName, value);
+        logger.debug("Searching for user with {} = {}",  propertyName, value);
 
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Favorite> query = builder.createQuery( Favorite.class );
         Root<Favorite> root = query.from( Favorite.class );
-        Expression<String> propertyPath = root.get(propertyName);
+        query.select(root).where(builder.like(root.get(propertyName), "%" + value + "%"));
 
-        query.where(builder.like(propertyPath, "%" + value + "%"));
+        List<Favorite> favorites = session.createQuery( query ).getResultList();
 
-        List<Favorite> Favorites = session.createQuery( query ).getResultList();
+
+        //Output each Favorite's foreign key
+        for (int i=0; i < favorites.size(); i++) {
+            Favorite favorite = favorites.get(i);
+            System.out.println("\n\n\n\n" + favorites.get(i));
+        }
+
         session.close();
-        return Favorites;
+        return favorites;
     }
 
     /**

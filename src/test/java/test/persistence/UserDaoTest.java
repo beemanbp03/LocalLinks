@@ -60,19 +60,22 @@ class UserDaoTest {
     @Test
     public void getUsersByIdSuccess() {
         User retrievedUser = userDao.getUserById(1);
-        assertEquals("Boulder", retrievedUser.getFirstName());
+        assertEquals(1, retrievedUser.getId());
     }
 
 
     @Test
     void saveOrUpdateSuccess() {
         String newLastName = "Williams";
-        User userToUpdate = userDao.getUserById(2);
+        User userToUpdate = userDao.getUserById(1);
         userToUpdate.setLastName(newLastName);
         userDao.saveOrUpdate(userToUpdate);
-        User retrievedUser = userDao.getUserById(2);
-        assertEquals(newLastName, retrievedUser.getLastName());
+        User retrievedUser = userDao.getUserById(1);
+
+        logger.info("\n\nRetrievedUser: " + retrievedUser + "\nUserToUpdate: " + userToUpdate);
+        assertEquals(userToUpdate, retrievedUser);
     }
+
 
     /**
      * Verifies successful insert of a user
@@ -80,10 +83,19 @@ class UserDaoTest {
     @Test
     void insertSuccess() {
         User newUser = new User("Packers2021", "Lombardi", "kuhn@madisoncollege.edu", "John", "Kuhn", 53932);
+
+        //find the id of the newly created User object from above.  insert(User user) returns an int representing the
+        //id of the newly made table row in the database's user table
         int id = userDao.insert(newUser);
+
+        //Make sure the id of the new User is NOT NULL
         assertNotEquals(0, id);
+
+        //Retrieve the newly created User by its id
         User insertedUser = userDao.getUserById(id);
-        assertEquals("John", insertedUser.getFirstName());
+
+        logger.info("\n\nRetrievedUser: " + insertedUser + "\nUserToUpdate: " + newUser);
+        assertEquals(newUser, insertedUser);
     }
 
     /**
@@ -106,8 +118,26 @@ class UserDaoTest {
      */
     @Test
     void getByPropertyEqualSuccess() {
-        List<User> users = userDao.getByPropertyLike("lastName", "Beeman");
-        assertEquals(2, users.size());
+        //User the method to test "getByPropertyLike(propertyPath, value)"
+        List<User> retrievedUsers = userDao.getByPropertyLike("lastName", "Beeman");
+
+        //Make expected Users and add them to the expectedUsers ArrayList
+        List<User> expectedUsers = new ArrayList<User>();
+        User expectedUser1 = new User("beemanbp03", "student", "bpbeeman@madisoncollege.edu", "Boulder", "Beeman", 53704);
+        User expectedUser2 = new User("dexter04", "student", "dexter@madisoncollege.edu", "Dexter", "Beeman", 53805);
+        expectedUser1.setId(1);
+        expectedUser2.setId(2);
+        expectedUsers.add(expectedUser1);
+        expectedUsers.add(expectedUser2);
+
+        //Output both Lists that are about to be compared
+        logger.info("\n\nExpected: " + expectedUsers + "\nActual: " + retrievedUsers);
+
+        //Loop through both arrayLists for expectedUsers and retrievedUsers and assert they are equal
+        for (int i=0; i < retrievedUsers.size(); i++) {
+            assertEquals(expectedUsers.get(i), retrievedUsers.get(i));
+        }
+
     }
 
     /**
@@ -115,17 +145,33 @@ class UserDaoTest {
      */
     @Test
     void getByPropertyLikeSuccess() {
-        List<User> users = userDao.getByPropertyLike("lastName", "d");
-        assertEquals(1, users.size());
+        List<User> retrievedUsers = userDao.getByPropertyLike("lastName", "o");
+        //Make expected Users and add them to the expectedUsers ArrayList
+        List<User> expectedUsers = new ArrayList<User>();
+        User expectedUser1 = new User("JohnDoe117", "student", "johndoe@madisoncollege.edu", "John", "Doe", 53929);
+        expectedUser1.setId(3);
+        expectedUsers.add(expectedUser1);
+
+        //Output both Lists that are about to be compared
+        logger.info("\n\nExpected: " + expectedUsers + "\nActual: " + retrievedUsers);
+
+        //Loop through both arrayLists for expectedUsers and retrievedUsers and assert they are equal
+        for (int i=0; i < retrievedUsers.size(); i++) {
+            assertEquals(expectedUsers.get(i), retrievedUsers.get(i));
+        }
     }
 
     /**
      * Verifies successful insert with favorite
+     * !!!!!! This test is probably going to be pointless, because in order for this scenario to exist, a new user has
+     * !!!!!! to be able to add favorites while they are creating their account. Not saying I won't explore this as a
+     * !!!!!! possible functionality, but it might be time-consuming and a nightmare to implement. therefore, I am not
+     * !!!!!! taking the time to refactor the code. COPY/PASTE the @Test above for blueprint on code refactor
      */
     @Test
     void insertWithFavoriteSuccess() {
         User newUser = new User("Zyn123", "student", "adk3223@madisoncollege.edu", "Mike", "Tomlin", 34596);
-        Favorite newFavorite = new Favorite(newUser,"Vitense", 432345445, "9543 Whitney way", 53765, "WI", 20.43, 3.21);
+        Favorite newFavorite = new Favorite("Vitense", 432345445, "9543 Whitney way", 53765, "WI", 20.43, 3.21, newUser);
 
         newUser.addFavorite(newFavorite);
 
