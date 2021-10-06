@@ -119,7 +119,7 @@ class UserDaoTest {
     @Test
     void getByPropertyEqualSuccess() {
         //User the method to test "getByPropertyLike(propertyPath, value)"
-        List<User> retrievedUsers = userDao.getByPropertyLike("lastName", "Beeman");
+        List<User> retrievedUsers = userDao.getByPropertyEqual("lastName", "Beeman");
 
         //Make expected Users and add them to the expectedUsers ArrayList
         List<User> expectedUsers = new ArrayList<User>();

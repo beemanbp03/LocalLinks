@@ -134,6 +134,31 @@ public class UserDao {
     }
 
     /**
+     * get all users using a firstName as the search term
+     * @param firstName String representing first name to search for
+     * @return List of User objects with first name of firstName param
+     */
+    public List<User> getUsersByFirstName(String firstName) {
+
+        //Create Connection
+        Session session = sessionFactory.openSession();
+        //Allows to build a query for an entity
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        //builds FROM clause
+        Root<User> root = query.from(User.class);
+        //By Last Name
+        Expression<String> propertyPath = root.get("firstName");
+        query.where(builder.like(propertyPath, "%" + firstName + "%"));
+        //Specify running the query
+        List<User> users = session.createQuery(query).getResultList();
+        //Close session
+        session.close();
+
+        return users;
+    }
+
+    /**
      * get all users using a lastName as the search term
      * @param lastName String representing last name to search for
      * @return List of User objects with last name of lastName param
@@ -150,6 +175,31 @@ public class UserDao {
         //By Last Name
         Expression<String> propertyPath = root.get("lastName");
         query.where(builder.like(propertyPath, "%" + lastName + "%"));
+        //Specify running the query
+        List<User> users = session.createQuery(query).getResultList();
+        //Close session
+        session.close();
+
+        return users;
+    }
+
+    /**
+     * get all users using a username as the search term
+     * @param userName String representing username to search for
+     * @return List of User objects with username of username param
+     */
+    public List<User> getUsersByUsername(String userName) {
+
+        //Create Connection
+        Session session = sessionFactory.openSession();
+        //Allows to build a query for an entity
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        //builds FROM clause
+        Root<User> root = query.from(User.class);
+        //By Last Name
+        Expression<String> propertyPath = root.get("userName");
+        query.where(builder.like(propertyPath, "%" + userName + "%"));
         //Specify running the query
         List<User> users = session.createQuery(query).getResultList();
         //Close session
