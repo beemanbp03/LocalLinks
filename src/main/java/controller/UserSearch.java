@@ -77,6 +77,12 @@ public class UserSearch extends HttpServlet {
 
         }
         /**
+         * Section that Supplies the results.jsp with ALL USERS
+         */
+        else if (req.getParameter("submit").equals("searchUserAll")) {
+            req.setAttribute("users", userDao.getAllUsers());
+        }
+        /**
          * Section that supplies the results.jsp with Favorites data
          */
         else if (req.getParameter("submit").equals("searchFavorite")){

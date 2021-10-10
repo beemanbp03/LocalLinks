@@ -38,7 +38,7 @@ public class FavoritesDaoTest {
     @Test
     void getAllFavoritesSuccess() {
         List<Favorite> favorites = favoriteDao.getAllFavorites();
-        assertEquals(2, favorites.size());
+        assertEquals(4, favorites.size());
     }
 
     /**
@@ -149,15 +149,17 @@ public class FavoritesDaoTest {
 
         //Make expected Favorites and add them to the expectedFavorites ArrayList
         List<Favorite> expectedFavorites = new ArrayList<Favorite>();
-        User expectedUser = userDao.getUserById(1);
         Favorite expectedFavorite1 = favoriteDao.getFavoriteById(1);
         Favorite expectedFavorite2 = favoriteDao.getFavoriteById(2);
+        Favorite expectedFavorite3 = favoriteDao.getFavoriteById(3);
         expectedFavorite1.setId(1);
         expectedFavorite2.setId(2);
+        expectedFavorite3.setId(3);
         expectedFavorites.add(expectedFavorite1);
         expectedFavorites.add(expectedFavorite2);
+        expectedFavorites.add(expectedFavorite3);
 
-        assertEquals(2, retrievedFavorites.size());
+        assertEquals(3, retrievedFavorites.size());
 
         //Output both Lists that are about to be compared
         logger.info("\nExpected: " + expectedFavorites.get(1) + "\nActual: " + retrievedFavorites.get(1) + "\n");

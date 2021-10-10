@@ -23,18 +23,18 @@
         <form action="searchUser" class="form-inline">
             <div class="form-group">
                 <label for="searchByUserId">User ID</label>
-                <input type="radio" id="searchByUserId" name="searchTypeUser" value="id" required/>
+                <input type="radio" id="searchByUserId" name="searchTypeUser" value="id" />
                 <label for="searchByUsername">User Name</label>
-                <input type="radio" id="searchByUsername" name="searchTypeUser" value="user_name" required/>
+                <input type="radio" id="searchByUsername" name="searchTypeUser" value="user_name" />
                 <label for="searchByFirstName">First Name</label>
-                <input type="radio" id="searchByFirstName" name="searchTypeUser" value="first_name" required/>
+                <input type="radio" id="searchByFirstName" name="searchTypeUser" value="first_name" />
                 <label for="searchByLastName">Last Name</label>
-                <input type="radio" id="searchByLastName" name="searchTypeUser" value="last_name" required/>
+                <input type="radio" id="searchByLastName" name="searchTypeUser" value="last_name" />
 
-                <input type="text" class="form-control" id="searchTermUser" name="searchTermUser" aria-describedby="searchTermHelp" placeholder="enter search term here" required/>
+                <input type="text" class="form-control" id="searchTermUser" name="searchTermUser" aria-describedby="searchTermHelp" placeholder="enter search term here" />
             </div>
             <button type="submit" name="submit" value="searchUser" class="btn btn-primary">Search</button>
-            <button type="submit" name="submit" value="searchUserAll" class="btn btn-primary">Search</button>
+            <button type="submit" name="submit" value="searchUserAll" class="btn btn-primary">Search All Users</button>
         </form>
 
         <br />

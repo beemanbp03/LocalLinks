@@ -84,6 +84,7 @@ public class UserDao {
        CriteriaQuery<User> query = builder.createQuery(User.class);
        //builds FROM clause
        Root<User> root = query.from(User.class);
+       query.select(root);
        //Specify running the query
        List<User> users = session.createQuery(query).getResultList();
        logger.debug("The list of all users" + users);

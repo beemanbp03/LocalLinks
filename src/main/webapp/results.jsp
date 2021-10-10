@@ -78,6 +78,7 @@
       <br />
       <br />
 
+      <h2>Favorite Results: </h2>
       <!-- FAVORITES RESULTS TABLE -->
       <table id="favoriteTable" class="display" cellspacing="0" width="100%">
         <thead>
