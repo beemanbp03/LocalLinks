@@ -12,3 +12,5 @@ Week 4 - This week I set up my database for LocalLinks and created the user tabl
 Week 5 - This week I SET UP and implemented the user favorites DATABASE TABLE called 'favorites' as well as the unit testing for favoriteDao.java
 
 Week 6 - I started out this week by expanding unit testing for both User and Favorite DAOs, implemented .equals comparison between User and Favorite objects, added Favorite search funtionality to the searchUser.jsp and results.jsp which means I had to add that functionality to the UserSearch servlet
+
+Week 7 - Checkpoint 2 is complete. Will start implementing user login during week 7
