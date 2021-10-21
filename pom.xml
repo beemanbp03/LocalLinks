@@ -19,6 +19,9 @@
     <maven-compiler-plugin-version>3.8.1</maven-compiler-plugin-version>
     <maven-surefire-plugin-version>2.19</maven-surefire-plugin-version>
     <hibernate-version>5.4.4.Final</hibernate-version>
+    <auth-version>3.4.1</auth-version>
+    <json-version>20170516</json-version>
+    <commons-io-version>2.11.0</commons-io-version>
   </properties>
   <dependencies>
     <!-- Next 4 dependencies are for JUnit -->
@@ -88,7 +91,27 @@
       <artifactId>hibernate-c3p0</artifactId>
       <version>${hibernate-version}</version>
     </dependency>
+    <!-- for parsing access token -->
+    <!-- TODO add versions to properties element rather than hard-coding -->
+    <dependency>
+      <groupId>com.auth0</groupId>
+      <artifactId>java-jwt</artifactId>
+      <version>${auth-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>${json-version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>${commons-io-version}</version>
+    </dependency>
   </dependencies>
+
+
   <build>
     <finalName>YourIndieProject</finalName>
     <pluginManagement>
