@@ -2,6 +2,8 @@ package entity.weather;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 public class Forecast{
 
 	@JsonProperty("current")

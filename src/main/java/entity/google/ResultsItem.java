@@ -1,9 +1,9 @@
-package entity.google.places;
+package entity.google;
 
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Places{
+public class ResultsItem{
 
 	@JsonProperty("formatted_address")
 	private String formattedAddress;
@@ -49,6 +49,9 @@ public class Places{
 
 	@JsonProperty("place_id")
 	private String placeId;
+
+	@JsonProperty("permanently_closed")
+	private boolean permanentlyClosed;
 
 	public void setFormattedAddress(String formattedAddress){
 		this.formattedAddress = formattedAddress;
@@ -170,10 +173,18 @@ public class Places{
 		return placeId;
 	}
 
+	public void setPermanentlyClosed(boolean permanentlyClosed){
+		this.permanentlyClosed = permanentlyClosed;
+	}
+
+	public boolean isPermanentlyClosed(){
+		return permanentlyClosed;
+	}
+
 	@Override
  	public String toString(){
 		return 
-			"Places{" + 
+			"ResultsItem{" + 
 			"formatted_address = '" + formattedAddress + '\'' + 
 			",types = '" + types + '\'' + 
 			",business_status = '" + businessStatus + '\'' + 
@@ -189,6 +200,7 @@ public class Places{
 			",icon_mask_base_uri = '" + iconMaskBaseUri + '\'' + 
 			",plus_code = '" + plusCode + '\'' + 
 			",place_id = '" + placeId + '\'' + 
+			",permanently_closed = '" + permanentlyClosed + '\'' + 
 			"}";
 		}
 }
