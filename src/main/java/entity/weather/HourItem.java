@@ -29,7 +29,7 @@ public class HourItem{
 	private int cloud;
 
 	@JsonProperty("wind_kph")
-	private int windKph;
+	private double windKph;
 
 	@JsonProperty("wind_mph")
 	private double windMph;
@@ -44,7 +44,7 @@ public class HourItem{
 	private int willItRain;
 
 	@JsonProperty("uv")
-	private int uv;
+	private double uv;
 
 	@JsonProperty("heatindex_f")
 	private double heatindexF;
@@ -86,7 +86,7 @@ public class HourItem{
 	private int willItSnow;
 
 	@JsonProperty("vis_km")
-	private int visKm;
+	private double visKm;
 
 	@JsonProperty("time_epoch")
 	private int timeEpoch;
@@ -98,10 +98,10 @@ public class HourItem{
 	private int chanceOfSnow;
 
 	@JsonProperty("pressure_mb")
-	private int pressureMb;
+	private double pressureMb;
 
 	@JsonProperty("vis_miles")
-	private int visMiles;
+	private double visMiles;
 
 	public void setFeelslikeC(double feelslikeC){
 		this.feelslikeC = feelslikeC;
@@ -167,11 +167,11 @@ public class HourItem{
 		return cloud;
 	}
 
-	public void setWindKph(int windKph){
+	public void setWindKph(double windKph){
 		this.windKph = windKph;
 	}
 
-	public int getWindKph(){
+	public double getWindKph(){
 		return windKph;
 	}
 
@@ -207,11 +207,11 @@ public class HourItem{
 		return willItRain;
 	}
 
-	public void setUv(int uv){
+	public void setUv(double uv){
 		this.uv = uv;
 	}
 
-	public int getUv(){
+	public double getUv(){
 		return uv;
 	}
 
@@ -319,11 +319,11 @@ public class HourItem{
 		return willItSnow;
 	}
 
-	public void setVisKm(int visKm){
+	public void setVisKm(double visKm){
 		this.visKm = visKm;
 	}
 
-	public int getVisKm(){
+	public double getVisKm(){
 		return visKm;
 	}
 
@@ -351,19 +351,19 @@ public class HourItem{
 		return chanceOfSnow;
 	}
 
-	public void setPressureMb(int pressureMb){
+	public void setPressureMb(double pressureMb){
 		this.pressureMb = pressureMb;
 	}
 
-	public int getPressureMb(){
+	public double getPressureMb(){
 		return pressureMb;
 	}
 
-	public void setVisMiles(int visMiles){
+	public void setVisMiles(double visMiles){
 		this.visMiles = visMiles;
 	}
 
-	public int getVisMiles(){
+	public double getVisMiles(){
 		return visMiles;
 	}
 

@@ -8,7 +8,7 @@ public class Day{
 	private double avgvisKm;
 
 	@JsonProperty("uv")
-	private int uv;
+	private double uv;
 
 	@JsonProperty("avgtemp_f")
 	private double avgtempF;
@@ -29,7 +29,7 @@ public class Day{
 	private double mintempC;
 
 	@JsonProperty("avgvis_miles")
-	private int avgvisMiles;
+	private double avgvisMiles;
 
 	@JsonProperty("daily_will_it_rain")
 	private int dailyWillItRain;
@@ -41,7 +41,7 @@ public class Day{
 	private double totalprecipIn;
 
 	@JsonProperty("avghumidity")
-	private int avghumidity;
+	private double avghumidity;
 
 	@JsonProperty("condition")
 	private Condition condition;
@@ -69,11 +69,11 @@ public class Day{
 		return avgvisKm;
 	}
 
-	public void setUv(int uv){
+	public void setUv(double uv){
 		this.uv = uv;
 	}
 
-	public int getUv(){
+	public double getUv(){
 		return uv;
 	}
 
@@ -125,11 +125,11 @@ public class Day{
 		return mintempC;
 	}
 
-	public void setAvgvisMiles(int avgvisMiles){
+	public void setAvgvisMiles(double avgvisMiles){
 		this.avgvisMiles = avgvisMiles;
 	}
 
-	public int getAvgvisMiles(){
+	public double getAvgvisMiles(){
 		return avgvisMiles;
 	}
 
@@ -157,11 +157,11 @@ public class Day{
 		return totalprecipIn;
 	}
 
-	public void setAvghumidity(int avghumidity){
+	public void setAvghumidity(double avghumidity){
 		this.avghumidity = avghumidity;
 	}
 
-	public int getAvghumidity(){
+	public double getAvghumidity(){
 		return avghumidity;
 	}
 

@@ -17,10 +17,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * A simple servlet to welcome the user.
- * @author pwaite
- */
+
 
 @WebServlet(
         urlPatterns = {"/searchUser"}
@@ -47,7 +44,7 @@ public class UserSearch extends HttpServlet {
 
 
         /**
-         * Section that supplies the results.jsp with User data
+         * Section that supplies the userResults.jsp with User data
          */
         if ( req.getParameter("submit").equals("searchUser")) {
 
@@ -77,13 +74,13 @@ public class UserSearch extends HttpServlet {
 
         }
         /**
-         * Section that Supplies the results.jsp with ALL USERS
+         * Section that Supplies the userResults.jsp with ALL USERS
          */
         else if (req.getParameter("submit").equals("searchUserAll")) {
             req.setAttribute("users", userDao.getAllUsers());
         }
         /**
-         * Section that supplies the results.jsp with Favorites data
+         * Section that supplies the userResults.jsp with Favorites data
          */
         else if (req.getParameter("submit").equals("searchFavorite")){
             if (searchTypeFavorite != null) {
@@ -101,7 +98,7 @@ public class UserSearch extends HttpServlet {
             }
         }
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/results.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/userResults.jsp");
         dispatcher.forward(req, resp);
     }
 }

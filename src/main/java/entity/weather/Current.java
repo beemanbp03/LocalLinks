@@ -8,7 +8,7 @@ public class Current{
 	private double feelslikeC;
 
 	@JsonProperty("uv")
-	private int uv;
+	private double uv;
 
 	@JsonProperty("last_updated")
 	private String lastUpdated;
@@ -26,7 +26,7 @@ public class Current{
 	private int isDay;
 
 	@JsonProperty("precip_in")
-	private int precipIn;
+	private double precipIn;
 
 	@JsonProperty("wind_dir")
 	private String windDir;
@@ -44,10 +44,10 @@ public class Current{
 	private double gustKph;
 
 	@JsonProperty("temp_f")
-	private int tempF;
+	private double tempF;
 
 	@JsonProperty("precip_mm")
-	private int precipMm;
+	private double precipMm;
 
 	@JsonProperty("cloud")
 	private int cloud;
@@ -62,16 +62,16 @@ public class Current{
 	private double windMph;
 
 	@JsonProperty("vis_km")
-	private int visKm;
+	private double visKm;
 
 	@JsonProperty("humidity")
 	private int humidity;
 
 	@JsonProperty("pressure_mb")
-	private int pressureMb;
+	private double pressureMb;
 
 	@JsonProperty("vis_miles")
-	private int visMiles;
+	private double visMiles;
 
 	public void setFeelslikeC(double feelslikeC){
 		this.feelslikeC = feelslikeC;
@@ -81,11 +81,11 @@ public class Current{
 		return feelslikeC;
 	}
 
-	public void setUv(int uv){
+	public void setUv(double uv){
 		this.uv = uv;
 	}
 
-	public int getUv(){
+	public double getUv(){
 		return uv;
 	}
 
@@ -129,11 +129,11 @@ public class Current{
 		return isDay;
 	}
 
-	public void setPrecipIn(int precipIn){
+	public void setPrecipIn(double precipIn){
 		this.precipIn = precipIn;
 	}
 
-	public int getPrecipIn(){
+	public double getPrecipIn(){
 		return precipIn;
 	}
 
@@ -177,19 +177,19 @@ public class Current{
 		return gustKph;
 	}
 
-	public void setTempF(int tempF){
+	public void setTempF(double tempF){
 		this.tempF = tempF;
 	}
 
-	public int getTempF(){
+	public double getTempF(){
 		return tempF;
 	}
 
-	public void setPrecipMm(int precipMm){
+	public void setPrecipMm(double precipMm){
 		this.precipMm = precipMm;
 	}
 
-	public int getPrecipMm(){
+	public double getPrecipMm(){
 		return precipMm;
 	}
 
@@ -225,11 +225,11 @@ public class Current{
 		return windMph;
 	}
 
-	public void setVisKm(int visKm){
+	public void setVisKm(double visKm){
 		this.visKm = visKm;
 	}
 
-	public int getVisKm(){
+	public double getVisKm(){
 		return visKm;
 	}
 
@@ -241,19 +241,19 @@ public class Current{
 		return humidity;
 	}
 
-	public void setPressureMb(int pressureMb){
+	public void setPressureMb(double pressureMb){
 		this.pressureMb = pressureMb;
 	}
 
-	public int getPressureMb(){
+	public double getPressureMb(){
 		return pressureMb;
 	}
 
-	public void setVisMiles(int visMiles){
+	public void setVisMiles(double visMiles){
 		this.visMiles = visMiles;
 	}
 
-	public int getVisMiles(){
+	public double getVisMiles(){
 		return visMiles;
 	}
 

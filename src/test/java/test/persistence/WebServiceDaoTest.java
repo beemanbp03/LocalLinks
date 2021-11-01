@@ -28,7 +28,7 @@ public class WebServiceDaoTest {
     @Test
     public void getWeatherSuccess() throws Exception {
         WebServiceDao serviceClient = new WebServiceDao();
-        Forecast weather = serviceClient.getWeather();
+        Weather weather = serviceClient.getWeather();
         String townName = weather.getLocation().getName();
         assertEquals("Fennimore", townName);
 

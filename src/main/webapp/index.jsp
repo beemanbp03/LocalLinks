@@ -24,6 +24,10 @@
             <h1>Welcome to Local Links!</h1>
             <h2>For the spontaneous golfer</h2>
             <p>Find golf courses within certain distances from you and check out what the weather looks like </p>
+            <form action="golfCourseSearchResults">
+                <input type="text" name="zipCodeSearch" id="zipCode" placeholder="Enter ZIP Code" />
+                <button type="submit" name="submit" value="Search" >Search</button>
+            </form>
         </div>
     </section>
     <section></section>
