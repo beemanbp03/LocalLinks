@@ -4,7 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
 import persistence.SessionFactoryProvider;
-import persistence.WebServiceDao;
+import persistence.GoogleApiDao;
+import persistence.WeatherApiDao;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -28,11 +30,16 @@ public class GolfCourseSearch extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        WebServiceDao webServiceDao = new WebServiceDao();
+        GoogleApiDao googleServiceDao = new GoogleApiDao();
+        WeatherApiDao weatherServiceDao = new WeatherApiDao();
         String zipCodeParam = req.getParameter("zipCodeSearch");
 
-        req.setAttribute("places", webServiceDao.getPlaces());
-        req.setAttribute("weather", webServiceDao.getWeather());
+        try {
+            req.setAttribute("places", googleServiceDao.getPlaces(50));
+            req.setAttribute("weather", weatherServiceDao.getWeather());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("golfCourseResults.jsp");
         dispatcher.forward(req, resp);

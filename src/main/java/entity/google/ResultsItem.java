@@ -5,9 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ResultsItem{
 
-	@JsonProperty("formatted_address")
-	private String formattedAddress;
-
 	@JsonProperty("types")
 	private List<String> types;
 
@@ -32,6 +29,12 @@ public class ResultsItem{
 	@JsonProperty("user_ratings_total")
 	private int userRatingsTotal;
 
+	@JsonProperty("price_level")
+	private int priceLevel;
+
+	@JsonProperty("scope")
+	private String scope;
+
 	@JsonProperty("name")
 	private String name;
 
@@ -44,6 +47,9 @@ public class ResultsItem{
 	@JsonProperty("icon_mask_base_uri")
 	private String iconMaskBaseUri;
 
+	@JsonProperty("vicinity")
+	private String vicinity;
+
 	@JsonProperty("plus_code")
 	private PlusCode plusCode;
 
@@ -52,14 +58,6 @@ public class ResultsItem{
 
 	@JsonProperty("permanently_closed")
 	private boolean permanentlyClosed;
-
-	public void setFormattedAddress(String formattedAddress){
-		this.formattedAddress = formattedAddress;
-	}
-
-	public String getFormattedAddress(){
-		return formattedAddress;
-	}
 
 	public void setTypes(List<String> types){
 		this.types = types;
@@ -125,6 +123,22 @@ public class ResultsItem{
 		return userRatingsTotal;
 	}
 
+	public void setPriceLevel(int priceLevel){
+		this.priceLevel = priceLevel;
+	}
+
+	public int getPriceLevel(){
+		return priceLevel;
+	}
+
+	public void setScope(String scope){
+		this.scope = scope;
+	}
+
+	public String getScope(){
+		return scope;
+	}
+
 	public void setName(String name){
 		this.name = name;
 	}
@@ -157,6 +171,14 @@ public class ResultsItem{
 		return iconMaskBaseUri;
 	}
 
+	public void setVicinity(String vicinity){
+		this.vicinity = vicinity;
+	}
+
+	public String getVicinity(){
+		return vicinity;
+	}
+
 	public void setPlusCode(PlusCode plusCode){
 		this.plusCode = plusCode;
 	}
@@ -185,8 +207,7 @@ public class ResultsItem{
  	public String toString(){
 		return 
 			"ResultsItem{" + 
-			"formatted_address = '" + formattedAddress + '\'' + 
-			",types = '" + types + '\'' + 
+			"types = '" + types + '\'' + 
 			",business_status = '" + businessStatus + '\'' + 
 			",icon = '" + icon + '\'' + 
 			",rating = '" + rating + '\'' + 
@@ -194,10 +215,13 @@ public class ResultsItem{
 			",photos = '" + photos + '\'' + 
 			",reference = '" + reference + '\'' + 
 			",user_ratings_total = '" + userRatingsTotal + '\'' + 
+			",price_level = '" + priceLevel + '\'' + 
+			",scope = '" + scope + '\'' + 
 			",name = '" + name + '\'' + 
 			",opening_hours = '" + openingHours + '\'' + 
 			",geometry = '" + geometry + '\'' + 
 			",icon_mask_base_uri = '" + iconMaskBaseUri + '\'' + 
+			",vicinity = '" + vicinity + '\'' + 
 			",plus_code = '" + plusCode + '\'' + 
 			",place_id = '" + placeId + '\'' + 
 			",permanently_closed = '" + permanentlyClosed + '\'' + 

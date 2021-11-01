@@ -32,7 +32,11 @@
       <h2>Golf Course Results: </h2>
       <br />
       <h3>GOOGLE PLACES RESULTS</h3>
-      <p>${places.results.get(0).name}</p>
+      <c:forEach var="result" items="${places.results}">
+        <p>${result.name}</p>
+        <p></p>
+        <br />
+      </c:forEach>
 
       <h3>WEATHER RESULTS</h3>
 
