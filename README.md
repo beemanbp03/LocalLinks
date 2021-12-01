@@ -7,6 +7,13 @@ forecasts for the next 6 hours. For people who want to travel to new golf course
 of all your options as well as know if it will rain in that location in the next 6 hours.  This will save people time,
 gas, and wasted time.  
 
+## Test Database MYSQL dump
+
+I have provided the DDL to create and insert data into both Favorites and User tables in the test database
+
+- [Favorites Table DDL](test_LocalLinks_favorites.sql)
+- [User Table DDL](test_LocalLinks_user.sql)
+
 ## Design
 - [Figma Mockup](https://www.figma.com/file/I1TPpRz8sZ3vOxRZ0Ss6iw/Local-Links?node-id=0%3A1)
 - [Database Design](designDocuments/databaseDesign.md)
