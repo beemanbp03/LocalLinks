@@ -3,6 +3,10 @@ package entity.google;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Entity class for the Google Places API
+ */
+
 public class Places{
 
 	@JsonProperty("next_page_token")

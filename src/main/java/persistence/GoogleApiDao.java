@@ -12,6 +12,10 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import java.util.Properties;
 
+/**
+ * This DAO handles all Google Places API functionality
+ */
+
 public class GoogleApiDao implements PropertiesLoader {
 
     public Places getPlaces(int distance) throws Exception {

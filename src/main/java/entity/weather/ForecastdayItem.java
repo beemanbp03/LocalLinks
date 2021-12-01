@@ -3,6 +3,10 @@ package entity.weather;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Entity class for the Weather API that will be consumed
+ */
+
 public class ForecastdayItem{
 
 	@JsonProperty("date")

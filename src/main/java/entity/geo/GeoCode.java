@@ -3,6 +3,10 @@ package entity.geo;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Entity class for geo api
+ */
+
 public class GeoCode{
 
 	@JsonProperty("results")

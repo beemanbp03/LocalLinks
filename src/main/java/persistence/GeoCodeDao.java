@@ -12,6 +12,10 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import java.util.Properties;
 
+/**
+ * This DAO handles obtaining the user's latitude and longitude
+ */
+
 public class GeoCodeDao implements PropertiesLoader {
 
     public GeoCode getLatLong(int zipCode) throws Exception {

@@ -5,7 +5,7 @@
 
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:mysql://aat5ycbh27pxrz.cr0mjtexrugh.us-east-2.rds.amazonaws.com:3306/LocalLinks</property>
+        <property name="connection.url">jdbc:mysql://aaa6ivd3t6rkqt.cr0mjtexrugh.us-east-2.rds.amazonaws.com:3306/LocalLinks</property>
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
 

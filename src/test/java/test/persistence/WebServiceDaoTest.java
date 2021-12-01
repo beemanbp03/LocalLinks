@@ -12,18 +12,29 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class runs tests on all three API's we are consuming (Google Geo, Google Places, Weather)
+ */
 public class WebServiceDaoTest {
 
+    /**
+     * This verifies that Google Places API is able to retrieve a Places entity object
+     * @throws Exception
+     */
     @Test
     public void getPlacesSuccess() throws Exception {
         GoogleApiDao serviceClient = new GoogleApiDao();
-        Places places = serviceClient.getPlaces(50);
+        Places places = serviceClient.getPlaces(10);
         List<entity.google.ResultsItem> results = places.getResults();
 
         //Assertions
         assertEquals("Hickory Grove Golf & Country Club", results.get(0).getName());
     }
 
+    /**
+     * This verifies that Weather API is able to retrieve a Weather entity object based off latitude and longitude
+     * @throws Exception
+     */
     @Test
     public void getWeatherSuccess() throws Exception {
         WeatherApiDao serviceClient = new WeatherApiDao();
@@ -35,6 +46,10 @@ public class WebServiceDaoTest {
 
     }
 
+    /**
+     * This verifies that Google GEO API is able to retrieve the latitude and longitude of a zip code
+     * @throws Exception
+     */
     @Test
     public void getLatLongSuccess() throws Exception {
         GeoCodeDao serviceClient = new GeoCodeDao();

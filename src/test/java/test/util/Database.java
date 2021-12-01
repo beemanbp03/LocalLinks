@@ -14,28 +14,46 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 /**
- * Provides access the database
+ * Provides access to the test database (test_LocalLinks)
  * Created on 8/31/16.
  *
- * @author pwaite
+ * @author bpbeeman
  */
 
 public class Database {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
-    // create an object of the class Database
+
+    //Initialize and instantiate instance variables
     private static final Database instance = new Database();
-
     private Properties properties;
-
     private Connection connection;
 
-    // private constructor prevents instantiating this class anywhere else
+    /**
+     * private constructor prevents instantiating this class anywhere else
+     */
     private Database() {
         loadProperties();
-
     }
 
+    /**
+     * GET the Database instance variable
+     */
+    public static Database getInstance() {
+        return instance;
+    }
+
+    /**
+     * GET the Connection instance variable
+     * @return
+     */
+    public Connection getConnection() {
+        return connection;
+    }
+
+    /**
+     * This method loads a properties file using the properties instance variable
+     */
     private void loadProperties() {
         properties = new Properties();
         try {
@@ -50,15 +68,10 @@ public class Database {
 
     }
 
-    // get the only Database object available
-    public static Database getInstance() {
-        return instance;
-    }
-
-    public Connection getConnection() {
-        return connection;
-    }
-
+    /**
+     * This method uses the connection instance variable to connect to the database using the properties instance variable
+     * @throws Exception
+     */
     public void connect() throws Exception {
         if (connection != null)
             return;
@@ -73,6 +86,9 @@ public class Database {
         connection = DriverManager.getConnection(url, properties.getProperty("username"),  properties.getProperty("password"));
     }
 
+    /**
+     * Disconnect from the database
+     */
     public void disconnect() {
         if (connection != null) {
             try {
@@ -86,7 +102,7 @@ public class Database {
     }
 
     /**
-     * Run the sql.
+     * Run the sql that was provided as a parameter
      *
      * @param sqlFile the sql file to be read and executed line by line
      */

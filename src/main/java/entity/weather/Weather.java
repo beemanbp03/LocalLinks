@@ -2,6 +2,10 @@ package entity.weather;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Entity class for the Weather API that will be consumed
+ */
+
 public class Weather{
 
 	@JsonProperty("current")

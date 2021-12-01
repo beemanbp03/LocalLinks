@@ -12,8 +12,17 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import java.util.Properties;
 
+/**
+ * This DAO handles all Weather api functionality for getting the weather for each Google Places result's location
+ */
+
 public class WeatherApiDao implements PropertiesLoader {
 
+    /**
+     * This method gets the weather based off latitude and longitude coordinates
+     * @return Weather entity object under java/entity/weather
+     * @throws Exception
+     */
     public Weather getWeather() throws Exception{
         Properties properties = loadProperties("/api.properties");
         Client client = ClientBuilder.newClient();

@@ -4,9 +4,8 @@ package controller;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
-import persistence.FavoriteDao;
+import persistence.Dao;
 import persistence.SessionFactoryProvider;
-import persistence.UserDao;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,7 +22,12 @@ import java.util.Map;
         urlPatterns = {"/searchUser"}
 )
 
+/**
+ * This servlet allows us to search for a Users and Favorites
+ */
+
 public class UserSearch extends HttpServlet {
+
 
     private final Logger logger = LogManager.getLogger(this.getClass());
     SessionFactory sessionFactory = SessionFactoryProvider.getSessionFactory();
@@ -31,8 +35,7 @@ public class UserSearch extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        UserDao userDao = new UserDao();
-        FavoriteDao favoriteDao = new FavoriteDao();
+        Dao dao = new Dao();
 
         //HTTP form info || set attributes
         String searchTermUser = req.getParameter("searchTermUser");
@@ -40,7 +43,6 @@ public class UserSearch extends HttpServlet {
 
         String searchTermFavorite = req.getParameter("searchTermFavorite");
         String searchTypeFavorite = req.getParameter("searchTypeFavorite");
-
 
 
         /**
@@ -51,25 +53,25 @@ public class UserSearch extends HttpServlet {
             if (searchTypeUser.equals("id")) {
                 try {
                     int id = Integer.parseInt(searchTermUser);
-                    req.setAttribute("user", userDao.getUserById(id));
+                    req.setAttribute("user", dao.getUserById(id));
                 } catch(Exception e) {
                     logger.debug("SOME SORT OF ERROR HAPPENED", e);
                 }
 
             } else if (searchTypeUser.equals("user_name")) {
 
-                req.setAttribute("users", userDao.getUsersByUsername(searchTermUser));
+                req.setAttribute("users", dao.getUsersByUsername(searchTermUser));
 
             } else if (searchTypeUser.equals("first_name")) {
 
-                req.setAttribute("users", userDao.getUsersByFirstName(searchTermUser));
+                req.setAttribute("users", dao.getUsersByFirstName(searchTermUser));
 
             } else if (searchTypeUser.equals("last_name")) {
 
-                req.setAttribute("users", userDao.getUsersByLastName(searchTermUser));
+                req.setAttribute("users", dao.getUsersByLastName(searchTermUser));
 
             } else if (searchTypeUser == null){
-                req.setAttribute("users", userDao.getByPropertyLike(searchTypeUser, searchTermUser));
+                req.setAttribute("users", dao.getUserByPropertyLike(searchTypeUser, searchTermUser));
             }
 
         }
@@ -77,7 +79,7 @@ public class UserSearch extends HttpServlet {
          * Section that Supplies the userResults.jsp with ALL USERS
          */
         else if (req.getParameter("submit").equals("searchUserAll")) {
-            req.setAttribute("users", userDao.getAllUsers());
+            req.setAttribute("users", dao.getAllUsers());
         }
         /**
          * Section that supplies the userResults.jsp with Favorites data
@@ -86,15 +88,15 @@ public class UserSearch extends HttpServlet {
             if (searchTypeFavorite != null) {
                 if (searchTypeFavorite.equals("id")) {
 
-                    req.setAttribute("favorite", favoriteDao.getFavoriteById(Integer.parseInt(searchTermUser)));
+                    req.setAttribute("favorite", dao.getFavoriteById(Integer.parseInt(searchTermUser)));
 
                 } else if (searchTypeFavorite.equals("name")) {
 
-                    req.setAttribute("users", favoriteDao.getFavoritesByName(searchTermUser));
+                    req.setAttribute("users", dao.getFavoritesByName(searchTermUser));
 
                 }
             } else {
-                req.setAttribute("users", favoriteDao.getByPropertyLike("name", searchTermUser));
+                req.setAttribute("users", dao.getUserByPropertyLike("name", searchTermUser));
             }
         }
 

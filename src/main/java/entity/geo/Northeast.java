@@ -2,6 +2,10 @@ package entity.geo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Entity class for geo api
+ */
+
 public class Northeast{
 
 	@JsonProperty("lng")

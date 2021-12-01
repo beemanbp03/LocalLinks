@@ -15,19 +15,26 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-/**
- * This servlet searches for golf courses and their weather based on a ZIP code entered by the user
- */
 
 @WebServlet(
         urlPatterns = {"/golfCourseSearchResults"}
 )
 
+/**
+ * This servlet searches for golf courses and their weather based on a ZIP code entered by the user
+ */
 public class GolfCourseSearch extends HttpServlet {
     private final Logger logger = LogManager.getLogger(this.getClass());
     SessionFactory sessionFactory = SessionFactoryProvider.getSessionFactory();
 
 
+    /**
+     * Route to the aws-hosted cognito login page.
+     * @param req servlet request
+     * @param resp servlet response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         GoogleApiDao googleServiceDao = new GoogleApiDao();

@@ -9,17 +9,26 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 
 
-/**
- * A simple servlet to welcome the user.
- * @author pwaite
- */
+
 
 @WebServlet(
         urlPatterns = {"/home"}
 )
 
+/**
+ * A simple servlet to welcome the user.
+ * @author bpbeeman
+ */
 public class Initialize extends HttpServlet {
+
     @Override
+    /**
+     * Route to the aws-hosted cognito login page.
+     * @param req servlet request
+     * @param resp servlet response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");

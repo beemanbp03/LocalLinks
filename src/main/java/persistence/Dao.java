@@ -9,18 +9,23 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+/**
+ * This DAO handles CRUD for both User and Favorite tables in the LocalLinks database using hibernate
+ */
 
 public class Dao {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
     SessionFactory sessionFactory = SessionFactoryProvider.getSessionFactory();
 
+
     /**                                            Get By id                                                         **/
+
     /**
      * Uses Hibernate to get a user by their id
      * @param id int
@@ -49,7 +54,9 @@ public class Dao {
         return Favorite;
     }
 
+
     /**                                                Insert                                                        **/
+
     /**
      * update user
      * @param user  User to be inserted or updated
@@ -78,7 +85,9 @@ public class Dao {
         return id;
     }
 
+
     /**                                                Delete                                                        **/
+
     /**
      * Delete a user
      * @param user User to be deleted
@@ -103,7 +112,9 @@ public class Dao {
         session.close();
     }
 
+
     /**                                              Save Or Update                                                  **/
+
     /**
      * update user
      * @param user  User to be inserted or updated
@@ -128,7 +139,9 @@ public class Dao {
         session.close();
     }
 
+
     /**                                                Get All                                                       **/
+
     /**
      * get all users from the 'user' table in the LocalLinks database
      * @return List of Users objects
@@ -176,6 +189,7 @@ public class Dao {
 
 
     /**                                          Get By Property Equals                                              **/
+
     /**
      * Get user by property (exact match)
      * sample usage: getByPropertyEqual("lastname", "Curry")
@@ -197,7 +211,6 @@ public class Dao {
         return users;
     }
 
-
     /**
      * Get Favorite by property (exact match)
      * sample usage: getByPropertyEqual("lastname", "Curry")
@@ -216,6 +229,7 @@ public class Dao {
         session.close();
         return Favorites;
     }
+
 
     /**                                           Get By Property Like                                               **/
     /**
@@ -266,7 +280,9 @@ public class Dao {
         return favorites;
     }
 
+
     /**                                              Get By Name                                                     **/
+
     /**
      * get all users using a firstName as the search term
      * @param firstName String representing first name to search for
@@ -342,6 +358,7 @@ public class Dao {
         return Favorites;
     }
 
+
     /**                                              Get By Username                                                     **/
     /**
      * get all users using a username as the search term
@@ -368,6 +385,31 @@ public class Dao {
         return users;
     }
 
+
+    /**                                           Get By User id (foreign key)                                        */
+
+
+    public Set<Favorite> getFavoritesByUserId(User user) {
+        String userId = String.valueOf(user.getId());
+        //Create Connection
+        Session session = sessionFactory.openSession();
+        //Allows to build a query for an entity
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Favorite> query = builder.createQuery(Favorite.class);
+        //builds FROM clause
+        Root<Favorite> root = query.from(Favorite.class);
+        //By user
+        Path<Favorite> propertyPath = root.join("user").get("id");
+        query.select(propertyPath);
+        //Specify running the query
+        List<Favorite> favorites = session.createQuery(query).getResultList();
+        Set<Favorite> favoritesSet = new HashSet<>(favorites);
+
+        //Close session
+        session.close();
+
+        return favoritesSet;
+    }
 
 
 }
