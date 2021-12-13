@@ -3,7 +3,7 @@ package persistence;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import entity.geo.GeoCode;
+import entity.geo.*;
 import util.PropertiesLoader;
 
 import javax.ws.rs.client.Client;

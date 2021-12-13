@@ -1,6 +1,9 @@
 package test.persistence;
 
 
+import entity.geo.Geometry;
+import entity.geo.Location;
+import entity.geo.ResultsItem;
 import org.junit.Test;
 import persistence.GoogleApiDao;
 import persistence.WeatherApiDao;
@@ -24,7 +27,16 @@ public class WebServiceDaoTest {
     @Test
     public void getPlacesSuccess() throws Exception {
         GoogleApiDao serviceClient = new GoogleApiDao();
-        Places places = serviceClient.getPlaces(10);
+        GeoCodeDao geoCodeDao = new GeoCodeDao();
+
+        //Initialize the lat/lng variables and retrieve them from a GeoCodeDao api call
+        GeoCode geo = geoCodeDao.getLatLong(35805);
+        List<ResultsItem> geoResults = geo.getResults();
+        double lat = geoResults.get(0).getGeometry().getLocation().getLat();
+        double lng = geoResults.get(0).getGeometry().getLocation().getLng();
+
+
+        Places places = serviceClient.getPlaces(10, lat, lng);
         List<entity.google.ResultsItem> results = places.getResults();
 
         //Assertions
