@@ -29,17 +29,23 @@
 
     <div class="container-fluid">
       <!-- Golf Course Results -->
-      <h2>Golf Course Results: </h2>
+
       <br />
-      <h3>GOOGLE PLACES RESULTS</h3>
       <c:forEach var="result" items="${places.results}" varStatus="loop">
-        <p>${result.name}</p>
-        <p>${weather.get(loop.index)}F</p>
+        <h2>${result.name}</h2>
+        <c:forEach var="item" items="${weather}" varStatus="loop">
+          <h2>Hour: ${item.get(loop.index).get("hour")}</h2>
+          <p>Temperature: ${item.get(loop.index).get("tempF")}F</p>
+          <p>Wind Speed: ${item.get(loop.index).get("windSpeed")}mph</p>
+          <p>Will It Rain? ${item.get(loop.index).get("rainYesNo")}</p>
+          <p>Precipitation: ${item.get(loop.index).get("precipitation")}in.</p>
+          <p>Humidity: ${item.get(loop.index).get("humidity")}%</p>
+        </c:forEach>
+
         <hr />
         <br />
       </c:forEach>
 
-      <h3>WEATHER RESULTS</h3>
 
 
 
