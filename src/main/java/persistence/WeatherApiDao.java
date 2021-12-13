@@ -23,11 +23,11 @@ public class WeatherApiDao implements PropertiesLoader {
      * @return Weather entity object under java/entity/weather
      * @throws Exception
      */
-    public Weather getWeather() throws Exception{
+    public Weather getWeather(double lat, double lng) throws Exception{
         Properties properties = loadProperties("/api.properties");
         Client client = ClientBuilder.newClient();
         WebTarget target =
-                client.target("http://api.weatherapi.com/v1/forecast.json?key=" + properties.getProperty("weather.key") + "&q=42.97946295530269,-90.6501901218642&days=1&aqi=no&alerts=no");
+                client.target("http://api.weatherapi.com/v1/forecast.json?key=" + properties.getProperty("weather.key") + "&q=" + lat + "," + lng + "&days=1&aqi=no&alerts=no");
         String response = target.request(MediaType.APPLICATION_JSON).get(String.class);
         ObjectMapper mapper = new ObjectMapper();
         Weather weather = null;

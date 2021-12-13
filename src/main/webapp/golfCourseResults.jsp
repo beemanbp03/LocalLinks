@@ -32,15 +32,16 @@
       <h2>Golf Course Results: </h2>
       <br />
       <h3>GOOGLE PLACES RESULTS</h3>
-      <c:forEach var="result" items="${places.results}">
+      <c:forEach var="result" items="${places.results}" varStatus="loop">
         <p>${result.name}</p>
-        <p></p>
+        <p>${weather.get(loop.index)}F</p>
+        <hr />
         <br />
       </c:forEach>
 
       <h3>WEATHER RESULTS</h3>
 
-      <p>${weather.forecast.forecastday.get(0).hour.get(0).tempF}F</p>
+
 
 
     </div>

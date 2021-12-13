@@ -18,7 +18,7 @@ import java.util.Properties;
 
 public class GeoCodeDao implements PropertiesLoader {
 
-    public GeoCode getLatLong(int zipCode) throws Exception {
+    public GeoCode getLatLng(int zipCode) throws Exception {
         Properties properties = loadProperties("/api.properties");
         Client client = ClientBuilder.newClient();
         WebTarget target =
