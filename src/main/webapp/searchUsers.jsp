@@ -1,36 +1,12 @@
+<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Search for Users</title>
-
-        <!-- Bootstrap CSS and Javascript -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
-
-    </head>
+<head>
+    <c:import url="/head.jsp" />
+    <c:import url="/nav.jsp" />
+</head>
 
     <body>
-
-      <ul class="nav justify-content-end">
-
-          <li class="nav-item position-absolute start-0">
-            <a class="nav-link" href="index.html">Local Links</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="searchUsers.html">Search Users</a>
-          </li>
-
-
-          <li class="nav-item">
-            <a class="nav-link" href="signup.html">Sign Up</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="login.html">Login</a>
-          </li>
-
-      </ul>
-      <hr>
 
       <h2>Search By: User</h2>
 
