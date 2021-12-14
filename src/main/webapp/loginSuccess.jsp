@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="utf-8">
@@ -15,23 +16,16 @@
 
     <nav>
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="logIn">Login</a></li>
-            <li><a href="searchUsers.jsp">Search Users</a></li>
+            <li><a href="home"><<<<< Home (Signed in as: ${sessionScope.userName}</a></li>
         </ul>
     </nav>
-        <c:out test="${userName != 'beemanbp03'}" ><h1>Signed In As: ${userName}</h1></c:out>
+
     <section>
-        <div class="container">
-            <h1>Welcome to Local Links!</h1>
-            <h2>For the spontaneous golfer</h2>
-            <p>Find golf courses within certain distances from you and check out what the weather looks like </p>
-            <form action="golfCourseSearchResults">
-                <input type="text" name="zipCodeSearch" id="zipCode" placeholder="Enter ZIP Code" />
-                <button type="submit" name="submit" value="Search" >Search</button>
-            </form>
-        </div>
+        <h1 style="color: green;">SUCCESS!!</h1>
+        <br>
+        <p style="font-size: 32px;">Congrats <span style="color: green;">${sessionScope.userName}</span>! You have successfully logged in.</p>
     </section>
-    <section></section>
+
+
 </body>
 </html>
