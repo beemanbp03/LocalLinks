@@ -14,9 +14,19 @@
 
         </li>
 
-        <li class="nav-item">
-            <a class="btn btn-success text-white me-1 mt-1 position-absolute end-0" href="logIn">Login</a>
-        </li>
+        <c:choose>
+            <c:when test="${userName == null}">
+                <li class="nav-item">
+                    <a class="btn btn-success text-white me-1 mt-1 position-absolute end-0" href="login">Login</a>
+                </li>
+            </c:when>
+            <c:otherwise>
+                <li class="nav-item">
+                    <a class="btn btn-success text-white me-1 mt-1 position-absolute end-1" href="logout">Sign Out</a>
+                </li>
+            </c:otherwise>
+        </c:choose>
+
     </div>
 
 </ul>

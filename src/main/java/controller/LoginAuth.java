@@ -38,14 +38,14 @@ import java.util.stream.Collectors;
 
 
 @WebServlet(
-        urlPatterns = {"/auth"}
+        urlPatterns = {"/login_auth"}
 )
 // TODO if something goes wrong it this process, route to an error page. Currently, errors are only caught and logged.
 /**
  * Inspired by: https://stackoverflow.com/questions/52144721/how-to-get-access-token-using-client-credentials-using-java-code
  */
 
-public class Auth extends HttpServlet implements PropertiesLoader {
+public class LoginAuth extends HttpServlet implements PropertiesLoader {
     Properties properties;
     String CLIENT_ID;
     String CLIENT_SECRET;
@@ -144,12 +144,12 @@ public class Auth extends HttpServlet implements PropertiesLoader {
         String keyId = tokenHeader.getKid();
         String alg = tokenHeader.getAlg();
 
-        // todo pick proper key from the two - it just so happens that the first one works for my case
+
         // Use Key's N and E
         BigInteger modulus = new BigInteger(1, org.apache.commons.codec.binary.Base64.decodeBase64(jwks.getKeys().get(0).getN()));
         BigInteger exponent = new BigInteger(1, org.apache.commons.codec.binary.Base64.decodeBase64(jwks.getKeys().get(0).getE()));
 
-        // TODO the following is "happy path", what if the exceptions are caught?
+
         // Create a public key
         PublicKey publicKey = null;
         try {
@@ -178,7 +178,7 @@ public class Auth extends HttpServlet implements PropertiesLoader {
 
         logger.debug("here are all the available claims: " + jwt.getClaims());
 
-        // TODO decide what you want to do with the info!
+
         // for now, I'm just returning username for display back to the browser
 
         return userName;
