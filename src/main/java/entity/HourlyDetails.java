@@ -1,10 +1,8 @@
-package entity.weather;
+package entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.ArrayList;
-
-public class HourlyDetailsMap {
+public class HourlyDetails {
 
     @JsonProperty("hour")
     private String hour;
@@ -12,7 +10,7 @@ public class HourlyDetailsMap {
     @JsonProperty("icon")
     private String icon;
 
-    @JsonProperty("wind_speed")
+    @JsonProperty("windSpeed")
     private String windSpeed;
 
     @JsonProperty("precipitation")
@@ -53,10 +51,10 @@ public class HourlyDetailsMap {
     @Override
     public String toString(){
         return
-                "HourlyDetailsMap{" +
+                "{" +
                         "hour = '" + hour + '\'' +
                         "icon = '" + icon + '\'' +
-                        "wind_speed = '" + windSpeed + '\'' +
+                        "windSpeed = '" + windSpeed + '\'' +
                         "precipitation = '" + precipitation + '\'' +
                         "}";
     }

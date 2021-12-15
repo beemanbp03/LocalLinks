@@ -21,7 +21,7 @@
       <!-- Individual Results -->
 
       <!-- RESULT -->
-      <c:forEach var="result" items="${places.results}" varStatus="loop">
+      <c:forEach var="result" items="${results}" varStatus="loop">
         <br />
         <div class="container-fluid row justify-content-between mb-4">
           <div class="rounded border border-5 container-fluid row col-10 justify-content-center">
@@ -30,24 +30,33 @@
               <div class="col justify-content-start">
                 <h1>${result.name}</h1>
               </div>
+              <div class="col justify-content-start">
+                <h1>${result.vicinity}</h1>
+              </div>
               <div class="col text-end">
-                <button type="button" name="getDirections" class="btn btn-outline-success m-2">
-                  Directions
-                </button>
-                <button type="button" name="getCallLink" class="btn btn-outline-success m-2">
-                  Call
-                </button>
+                <a href="${result.url}">
+                  <button type="button" name="getDirections" class="btn btn-outline-success m-2">
+                    Directions
+                  </button>
+                </a>
+                <a href="tel:${result.call}">
+                  <button type="button" name="getCallLink" class="btn btn-outline-success m-2">
+                    Call
+                  </button>
+                </a>
               </div>
             </div>
 
             <div class="row">
               <div class="container col-12">
                 <div class="row text-center">
-                  <c:forEach var="item" items="${weather.dailyForecastItems}" varStatus="loopCount">
-                    <c:if test="${loopCount.index > 6 && loopCount.index < 18}">
+                  <c:forEach var="item" items="${result.hourlyWeather}" varStatus="loopCount">
+                    <c:if test="${loopCount.index > 6 && loopCount.index < 19}">
                       <div class="col m-1">
-                        <i><img alt="picture depicting weather" src="${item.hourlyDetailsMap.get(loopCount.index).icon}" /></i>
-                        <p>${item.hourlyDetailsMap.get(loopCount.index).hour}</p>
+                        <i><img alt="picture depicting weather" src="${item.icon}" /></i>
+                        <p>${item.hour}</p>
+                        <p>${item.windSpeed}mph</p>
+                        <p>${item.precipitation}in.</p>
                       </div>
                     </c:if>
 

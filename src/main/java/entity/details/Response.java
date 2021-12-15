@@ -1,32 +1,25 @@
-package entity.google;
+package entity.details;
 
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * Entity class for the Google Places API
- */
+public class Response{
 
-public class Places{
-
-	@JsonProperty("next_page_token")
-	private String nextPageToken;
+	@JsonProperty("result")
+	private Result result;
 
 	@JsonProperty("html_attributions")
 	private List<Object> htmlAttributions;
 
-	@JsonProperty("results")
-	private List<ResultsItem> results;
-
 	@JsonProperty("status")
 	private String status;
 
-	public void setNextPageToken(String nextPageToken){
-		this.nextPageToken = nextPageToken;
+	public void setResult(Result result){
+		this.result = result;
 	}
 
-	public String getNextPageToken(){
-		return nextPageToken;
+	public Result getResult(){
+		return result;
 	}
 
 	public void setHtmlAttributions(List<Object> htmlAttributions){
@@ -35,14 +28,6 @@ public class Places{
 
 	public List<Object> getHtmlAttributions(){
 		return htmlAttributions;
-	}
-
-	public void setResults(List<ResultsItem> results){
-		this.results = results;
-	}
-
-	public List<ResultsItem> getResults(){
-		return results;
 	}
 
 	public void setStatus(String status){
@@ -56,10 +41,9 @@ public class Places{
 	@Override
  	public String toString(){
 		return 
-			"Places{" + 
-			"next_page_token = '" + nextPageToken + '\'' + 
+			"Response{" + 
+			"result = '" + result + '\'' + 
 			",html_attributions = '" + htmlAttributions + '\'' + 
-			",results = '" + results + '\'' + 
 			",status = '" + status + '\'' + 
 			"}";
 		}

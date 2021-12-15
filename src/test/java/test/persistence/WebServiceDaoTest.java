@@ -1,14 +1,10 @@
 package test.persistence;
 
 
-import entity.geo.Geometry;
-import entity.geo.Location;
 import entity.geo.ResultsItem;
 import org.junit.Test;
-import persistence.GoogleApiDao;
-import persistence.WeatherApiDao;
-import persistence.GeoCodeDao;
-import entity.google.*;
+import persistence.ApiDao;
+import entity.places.*;
 import entity.weather.*;
 import entity.geo.*;
 import java.util.*;
@@ -26,18 +22,18 @@ public class WebServiceDaoTest {
      */
     @Test
     public void getPlacesSuccess() throws Exception {
-        GoogleApiDao serviceClient = new GoogleApiDao();
-        GeoCodeDao geoCodeDao = new GeoCodeDao();
+        ApiDao apiServiceDao = new ApiDao();
+
 
         //Initialize the lat/lng variables and retrieve them from a GeoCodeDao api call
-        GeoCode geo = geoCodeDao.getLatLng(35805);
+        GeoCode geo = apiServiceDao.getLatLng(35805);
         List<ResultsItem> geoResults = geo.getResults();
         double lat = geoResults.get(0).getGeometry().getLocation().getLat();
         double lng = geoResults.get(0).getGeometry().getLocation().getLng();
 
 
-        Places places = serviceClient.getPlaces(10, lat, lng);
-        List<entity.google.ResultsItem> results = places.getResults();
+        Places places = apiServiceDao.getPlaces(10, lat, lng);
+        List<entity.places.ResultsItem> results = places.getResults();
 
         //Assertions
         assertEquals("Hickory Grove Golf & Country Club", results.get(0).getName());
@@ -50,16 +46,15 @@ public class WebServiceDaoTest {
     @Test
     public void getWeatherSuccess() throws Exception {
         //initialize DAOs;
-        WeatherApiDao serviceClient = new WeatherApiDao();
-        GeoCodeDao geoDao = new GeoCodeDao();
+        ApiDao apiServiceDao = new ApiDao();
 
         //Retrieve Lattitude and Longitude
-        GeoCode geo = geoDao.getLatLng(53805);
+        GeoCode geo = apiServiceDao.getLatLng(53805);
         double lat = geo.getResults().get(0).getGeometry().getLocation().getLat();
         double lng = geo.getResults().get(0).getGeometry().getLocation().getLng();
 
         //Make the weather call using the WeatherApiDao
-        Weather weather = serviceClient.getWeather(lat, lng);
+        Weather weather = apiServiceDao.getWeather(lat, lng);
 
         //Set the actual town name
         String townName = weather.getLocation().getName();
@@ -75,8 +70,8 @@ public class WebServiceDaoTest {
      */
     @Test
     public void getLatLongSuccess() throws Exception {
-        GeoCodeDao serviceClient = new GeoCodeDao();
-        GeoCode geoCode = serviceClient.getLatLng(53805);
+        ApiDao apiServiceDao = new ApiDao();
+        GeoCode geoCode = apiServiceDao.getLatLng(53805);
         List<entity.geo.ResultsItem> results = geoCode.getResults();
 
         //Assertions

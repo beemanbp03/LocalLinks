@@ -1,10 +1,6 @@
-package entity.google;
+package entity.details;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-/**
- * Entity class for the Google Places API
- */
 
 public class Geometry{
 

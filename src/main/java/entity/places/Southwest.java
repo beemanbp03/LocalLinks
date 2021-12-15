@@ -1,4 +1,4 @@
-package entity.google;
+package entity.places;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Entity class for the Google Places API
  */
 
-public class Northeast{
+public class Southwest{
 
 	@JsonProperty("lng")
 	private double lng;
@@ -33,7 +33,7 @@ public class Northeast{
 	@Override
  	public String toString(){
 		return 
-			"Northeast{" + 
+			"Southwest{" + 
 			"lng = '" + lng + '\'' + 
 			",lat = '" + lat + '\'' + 
 			"}";

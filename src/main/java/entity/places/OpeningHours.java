@@ -1,4 +1,4 @@
-package entity.google;
+package entity.places;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
