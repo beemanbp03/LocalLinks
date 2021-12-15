@@ -61,7 +61,7 @@ public class Dao {
      * update user
      * @param user  User to be inserted or updated
      */
-    public int insert(User user) {
+    public int insertUser(User user) {
         int id = 0;
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -75,7 +75,7 @@ public class Dao {
      * update Favorite
      * @param Favorite  Favorite to be inserted or updated
      */
-    public int insert(Favorite Favorite) {
+    public int insertFavorite(Favorite Favorite) {
         int id = 0;
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -92,7 +92,7 @@ public class Dao {
      * Delete a user
      * @param user User to be deleted
      */
-    public void delete(User user) {
+    public void deleteUser(User user) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.delete(user);
@@ -104,7 +104,7 @@ public class Dao {
      * Delete a Favorite
      * @param  Favorite table row to be deleted
      */
-    public void delete(Favorite Favorite) {
+    public void deleteFavorite(Favorite Favorite) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.delete(Favorite);
@@ -119,7 +119,7 @@ public class Dao {
      * update user
      * @param user  User to be inserted or updated
      */
-    public void saveOrUpdate(User user) {
+    public void saveOrUpdateUser(User user) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.saveOrUpdate(user);
@@ -131,7 +131,7 @@ public class Dao {
      * update Favorite
      * @param Favorite  Favorite to be inserted or updated
      */
-    public void saveOrUpdate(Favorite Favorite) {
+    public void saveOrUpdateFavorite(Favorite Favorite) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.saveOrUpdate(Favorite);
@@ -236,7 +236,7 @@ public class Dao {
      * Get user by property (like)
      * sample usage: getByPropertyLike("lastname", "C")
      */
-    public List<User> getUserByPropertyLike(String propertyName, String value) {
+    public List<User> getUsersByPropertyLike(String propertyName, String value) {
         Session session = sessionFactory.openSession();
 
         logger.debug("Searching for user with {} = {}",  propertyName, value);
@@ -288,7 +288,7 @@ public class Dao {
      * @param firstName String representing first name to search for
      * @return List of User objects with first name of firstName param
      */
-    public List<User> getUsersByFirstName(String firstName) {
+    public List<User> getUserByFirstName(String firstName) {
 
         //Create Connection
         Session session = sessionFactory.openSession();
@@ -313,7 +313,7 @@ public class Dao {
      * @param lastName String representing last name to search for
      * @return List of User objects with last name of lastName param
      */
-    public List<User> getUsersByLastName(String lastName) {
+    public List<User> getUserByLastName(String lastName) {
 
         //Create Connection
         Session session = sessionFactory.openSession();
@@ -365,7 +365,7 @@ public class Dao {
      * @param userName String representing username to search for
      * @return List of User objects with username of username param
      */
-    public List<User> getUsersByUsername(String userName) {
+    public List<User> getUserByUsername(String userName) {
 
         //Create Connection
         Session session = sessionFactory.openSession();

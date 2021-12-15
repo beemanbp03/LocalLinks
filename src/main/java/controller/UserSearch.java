@@ -60,18 +60,16 @@ public class UserSearch extends HttpServlet {
 
             } else if (searchTypeUser.equals("user_name")) {
 
-                req.setAttribute("users", dao.getUsersByUsername(searchTermUser));
+                req.setAttribute("users", dao.getUserByUsername(searchTermUser));
 
             } else if (searchTypeUser.equals("first_name")) {
 
-                req.setAttribute("users", dao.getUsersByFirstName(searchTermUser));
+                req.setAttribute("users", dao.getUserByFirstName(searchTermUser));
 
             } else if (searchTypeUser.equals("last_name")) {
 
-                req.setAttribute("users", dao.getUsersByLastName(searchTermUser));
+                req.setAttribute("users", dao.getUserByLastName(searchTermUser));
 
-            } else if (searchTypeUser == null){
-                req.setAttribute("users", dao.getUserByPropertyLike(searchTypeUser, searchTermUser));
             }
 
         }
@@ -79,7 +77,7 @@ public class UserSearch extends HttpServlet {
          * Section that Supplies the userResults.jsp with ALL USERS
          */
         else if (req.getParameter("submit").equals("searchUserAll")) {
-            req.setAttribute("users", dao.getAllUsers());
+            req.setAttribute("user", dao.getAllUsers());
         }
         /**
          * Section that supplies the userResults.jsp with Favorites data
@@ -88,16 +86,20 @@ public class UserSearch extends HttpServlet {
             if (searchTypeFavorite != null) {
                 if (searchTypeFavorite.equals("id")) {
 
-                    req.setAttribute("favorite", dao.getFavoriteById(Integer.parseInt(searchTermUser)));
+                    req.setAttribute("favorites", dao.getFavoriteById(Integer.parseInt(searchTermUser)));
 
                 } else if (searchTypeFavorite.equals("name")) {
 
-                    req.setAttribute("users", dao.getFavoritesByName(searchTermUser));
+                    req.setAttribute("favorites", dao.getFavoritesByName(searchTermUser));
 
                 }
-            } else {
-                req.setAttribute("users", dao.getUserByPropertyLike("name", searchTermUser));
             }
+        }
+        /**
+         * Section that supplies the userResults.jsp with ALL rows of Favorites in the database
+         */
+        else if (req.getParameter("submit").equals("searchFavoriteAll")) {
+            req.setAttribute("favorites", dao.getAllFavorites());
         }
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/userResults.jsp");

@@ -52,7 +52,7 @@ class DaoTest {
      */
     @Test
     void getUserByLastNameSuccess() {
-        List<User> users = dao.getUsersByLastName("Beeman");
+        List<User> users = dao.getUserByLastName("Beeman");
         assertEquals(2, users.size());
     }
 
@@ -73,7 +73,7 @@ class DaoTest {
         String newLastName = "Williams";
         User userToUpdate = dao.getUserById(1);
         userToUpdate.setLastName(newLastName);
-        dao.saveOrUpdate(userToUpdate);
+        dao.saveOrUpdateUser(userToUpdate);
         User retrievedUser = dao.getUserById(1);
 
         logger.info("\n\nRetrievedUser: " + retrievedUser + "\nUserToUpdate: " + userToUpdate);
@@ -90,7 +90,7 @@ class DaoTest {
 
         //find the id of the newly created User object from above.  insert(User user) returns an int representing the
         //id of the newly made table row in the database's user table
-        int id = dao.insert(newUser);
+        int id = dao.insertUser(newUser);
 
         //Make sure the id of the new User is NOT NULL
         assertNotEquals(0, id);
@@ -112,7 +112,7 @@ class DaoTest {
         logger.debug("User waiting to be deleted: " + user);
         //logger.debug("Favorite(s) waiting to be deleted" + favoriteDao.getFavoritesByUserId(user));
 
-        dao.delete(user);
+        dao.deleteUser(user);
         assertNull(dao.getUserById(user.getId()));
         assertNotEquals(favorites, dao.getFavoritesByUserId(user));
     }
@@ -149,7 +149,7 @@ class DaoTest {
      */
     @Test
     void getUserByPropertyLikeSuccess() {
-        List<User> retrievedUsers = dao.getUserByPropertyLike("lastName", "o");
+        List<User> retrievedUsers = dao.getUsersByPropertyLike("lastName", "o");
         //Make expected Users and add them to the expectedUsers ArrayList
         List<User> expectedUsers = new ArrayList<User>();
         User expectedUser1 = new User("JohnDoe117", "student", "johndoe@madisoncollege.edu", "John", "Doe", 53929);
@@ -179,7 +179,7 @@ class DaoTest {
 
         newUser.addFavorite(newFavorite);
 
-        int id = dao.insert(newUser);
+        int id = dao.insertUser(newUser);
         assertNotEquals(0, id);
         User insertedUser = dao.getUserById(id);
         assertEquals("Zyn123", insertedUser.getUserName());
@@ -239,7 +239,7 @@ class DaoTest {
         String newName = "Pine Valley Golf Course";
         Favorite favoriteToUpdate = dao.getFavoriteById(1);
         favoriteToUpdate.setName("Pine Valley Golf Course");
-        dao.saveOrUpdate(favoriteToUpdate);
+        dao.saveOrUpdateFavorite(favoriteToUpdate);
         Favorite retrievedFavorite = dao.getFavoriteById(1);
         assertEquals(newName, retrievedFavorite.getName());
     }
@@ -251,7 +251,7 @@ class DaoTest {
     void insertFavoriteSuccess() {
         User user = dao.getUserById(1);
         Favorite newFavorite = new Favorite("Pairie Hills Golf Course", 608233445, "2342 Lindale ave", 53872, "WI", 3.40, 4.57, user);
-        int id = dao.insert(newFavorite);
+        int id = dao.insertFavorite(newFavorite);
         assertNotEquals(0, id);
         Favorite insertedFavorite = dao.getFavoriteById(id);
         assertEquals("Pairie Hills Golf Course", insertedFavorite.getName());
@@ -267,7 +267,7 @@ class DaoTest {
         User userFromDeletedFavorite = favoriteToDelete.getUser();
 
         logger.info("FAVORITE TO DELETE: favorite ID of " + favoriteToDelete.getId());
-        dao.delete(favoriteToDelete);
+        dao.deleteFavorite(favoriteToDelete);
         //Make sure the user that corresponded to the deleted favorite still exists
         assertNotNull(dao.getUserById(1));
         //Make sure the favorite to delete was actually deleted

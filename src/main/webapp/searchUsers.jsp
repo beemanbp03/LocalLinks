@@ -21,10 +21,11 @@
               <label for="searchByLastName">Last Name</label>
               <input type="radio" id="searchByLastName" name="searchTypeUser" value="last_name" />
 
-              <input type="text" class="form-control" id="searchTermUser" name="searchTermUser" aria-describedby="searchTermHelp" placeholder="enter search term here" />
+
+              <input type="text" class="form-control" id="searchTermUser" name="searchTermUser" aria-describedby="searchTermHelp" placeholder="enter search term here" required/>
           </div>
           <button type="submit" name="submit" value="searchUser" class="btn btn-primary">Search</button>
-          <button type="submit" name="submit" value="searchUserAll" class="btn btn-primary">Search All Users</button>
+          <button type="submit" name="submit" value="searchUserAll" class="btn btn-primary" formnovalidate>Search All Users</button>
       </form>
 
         <br />
@@ -32,7 +33,8 @@
 
       <h2>Search By: Favorites</h2>
 
-      <form action="searchFavorites" class="form-inline">
+      <!-- FAVORITES -->
+      <form action="searchUser" class="form-inline">
           <div class="form-group">
               <label for="searchByFavoriteId">Favorite ID</label>
               <input type="radio" id="searchByFavoriteId" name="searchTypeFavorite" value="id" pattern="\d*" required/>
@@ -46,8 +48,9 @@
               <input type="text" class="form-control" id="searchTermFavorite" name="searchTerm" aria-describedby="searchTermHelp" placeholder="enter search term here" required/>
           </div>
           <button type="submit" name="submit" value="searchFavorite" class="btn btn-primary">Search</button>
-          <button type="submit" name="submit" value="searchFavoriteAll" class="btn btn-primary">Search</button>
+          <button type="submit" name="submit" value="searchFavoriteAll" class="btn btn-primary" formnovalidate>Search All</button>
       </form>
+
     </body>
 
 </html>

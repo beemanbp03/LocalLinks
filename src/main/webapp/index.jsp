@@ -15,7 +15,7 @@
           <section>
               <div class="d-flex justify-content-center">
                   <h1>
-                      <img src="local-links-logo.png" alt="Local Links Logo"/>
+                      <img class="img-fluid" src="local-links-logo.png" alt="Local Links Logo"/>
                   </h1>
               </div>
           </section>

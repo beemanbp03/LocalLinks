@@ -20,10 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.time.LocalTime;
+import java.util.*;
 
 
 @WebServlet(
@@ -95,17 +93,26 @@ public class GolfCourseSearch extends HttpServlet {
                 // SOURCE https://stackoverflow.com/questions/3504986/extract-time-from-date-string
                 List<HourItem> hourItems = itemWeather.getForecast().getForecastday().get(0).getHour();
 
+
                 ArrayList<HashMap<String, String>> dailyForecastList = new ArrayList<HashMap<String, String>>();
                 for (HourItem itemHour : hourItems) {
+
+                    //First, the current hour is retrieved in order to weed out any hours that don't apply
+                    Date baseDate = Calendar.getInstance().getTime();
+                    logger.info("Base Date: " + baseDate);
+
 
                     HashMap<String, String> hourlyDetailsMap = new HashMap<String, String>();
 
                     //Convert and format hour
                     Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(itemHour.getTime());
+                    logger.info("Searched Date: " + date);
                     String hour = new SimpleDateFormat("H:mm").format(date);
                     //Retrieve rest of hourly weather details
                     double tempF = itemHour.getTempF();
                     double humidity = itemHour.getHumidity();
+                    String condition = itemHour.getCondition().getText();
+                    String icon = itemHour.getCondition().getIcon();
                     double windSpeed = itemHour.getWindMph();
                     int rainYesNo = itemHour.getWillItRain();
                     double precipitation = itemHour.getPrecipIn();
@@ -121,26 +128,26 @@ public class GolfCourseSearch extends HttpServlet {
                     hourlyDetailsMap.put("hour", hour);
                     hourlyDetailsMap.put("tempF", stringTempF);
                     hourlyDetailsMap.put("humidity", stringHumidity);
+                    hourlyDetailsMap.put("condition", condition);
+                    hourlyDetailsMap.put("icon", icon);
                     hourlyDetailsMap.put("windSpeed", stringWindSpeed);
                     hourlyDetailsMap.put("rainYesNo", stringRainYesNo);
                     hourlyDetailsMap.put("precipitation", stringPrecipitation);
 
-                    /*
-                    logger.info("\nHour: " + hour + "\n" +
-                            "Temp: " + tempF + "\n" +
-                            "Humidity: " + humidity + "\n" +
-                            "Wind Speed: " + windSpeed + "\n" +
-                            "Will It Rain: " + rainYesNo + "\n" +
-                            "Precipitation: " + precipitation + "in" + "\n" );
 
-                     */
-                    dailyForecastList.add(hourlyDetailsMap);
+                    if (date.compareTo(baseDate) > 0) {
+                        if () {
+                            logger.info("ADDED");
+                            dailyForecastList.add(hourlyDetailsMap);
+                        }
+                    }
+                logger.info("hourItems size: " + hourItems.size());
+                logger.info("dailForecastList size: " + dailyForecastList.size() + "\n\n\n");
                 }
                 weatherArray.add(dailyForecastList);
-                logger.info(weatherArray);
             }
 
-            //logger.info("weatherArray: " + weatherArray);
+            logger.info("weatherArray size: " + weatherArray.size());
             //Set the request attributes
             req.setAttribute("places", places);
             req.setAttribute("weather", weatherArray);

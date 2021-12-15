@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
-<script type="text/javascript" class="init">
-    $(document).ready( function() {
-      $('#userTable').DataTable();
-    } );
-</script>
 <html>
   <head>
     <c:import url="/head.jsp" />
@@ -14,7 +9,7 @@
   <body>
 
     <div class="container-fluid">
-      <h2>User Results: </h2>
+      <h2>Your Profile</h2>
       <!-- USER RESULTS TABLE -->
       <table id="userTable" class="display" cellspacing="0" width="100%">
         <thead>
@@ -27,26 +22,22 @@
         <th>ZIP Code</th>
         </thead>
         <tbody>
-
-            <c:forEach var="user" items="${user}">
-              <tr>
-                <td>${user.id}</td>
-                <td>${user.userName}</td>
-                <td>${user.password}</td>
-                <td>${user.email}</td>
-                <td>${user.firstName}</td>
-                <td>${user.lastName}</td>
-                <td>${user.zipCode}</td>
-              </tr>
-
-            </c:forEach>
+          <tr>
+            <td>${user.id}</td>
+            <td>${user.userName}</td>
+            <td>${user.password}</td>
+            <td>${user.email}</td>
+            <td>${user.firstName}</td>
+            <td>${user.lastName}</td>
+            <td>${user.zipCode}</td>
+          </tr>
         </tbody>
       </table>
 
       <br />
       <br />
 
-      <h2>Favorite Results: </h2>
+      <h2>Favorite</h2>
       <!-- FAVORITES RESULTS TABLE -->
       <table id="favoriteTable" class="display" cellspacing="0" width="100%">
         <thead>

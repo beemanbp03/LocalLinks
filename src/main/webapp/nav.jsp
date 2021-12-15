@@ -4,10 +4,14 @@
     <div class="d-inline-flex mt-3 me-2">
         <li class="nav-item ">
             <!-- THIS IS WHERE THE USERNAME and profile button WILL GO WHEN SOMEONE SIGNS IN -->
-            <a class="btn btn-outline-success me-1 mt-1" href="home">Home [${sessionScope.userName}]</a>
+            <a class="btn btn-outline-success me-1 mt-1" href="home">Home</a>
             <c:if test="${userName != beemanbp03}">
                 <a class="btn btn-outline-success me-1 mt-1" href="searchUsers.jsp">Admin</a>
             </c:if>
+            <c:if test="${userName != null}">
+                <a class="btn btn-outline-success me-1 mt-1" href="profile.jsp">Profile ${sessionScope.userName}</a>
+            </c:if>
+
         </li>
 
         <li class="nav-item">
