@@ -9,6 +9,7 @@
     <c:import url="/nav.jsp" />
   </head>
   <body>
+
   <div class="container-fluid">
     <div class="row text-center">
       <h1 class="col">Results</h1>
@@ -42,13 +43,14 @@
             <div class="row">
               <div class="container col-12">
                 <div class="row text-center">
-                  <c:forEach var="item" items="${weather}" varStatus="loop">
+                  <c:forEach var="item" items="${weather.dailyForecastItems}" varStatus="loopCount">
+                    <c:if test="${loopCount.index > 6 && loopCount.index < 18}">
+                      <div class="col m-1">
+                        <i><img alt="picture depicting weather" src="${item.hourlyDetailsMap.get(loopCount.index).icon}" /></i>
+                        <p>${item.hourlyDetailsMap.get(loopCount.index).hour}</p>
+                      </div>
+                    </c:if>
 
-                    <div class="col m-1">
-                      <i><img src="${item.get(loop.index).get("icon")}" /></i>
-                      <p>${item.get(loop.index).get("condition")}</p>
-                      <p>${item.get(loop.index).get("hour")}</p>
-                    </div>
 
                   </c:forEach>
                 </div>

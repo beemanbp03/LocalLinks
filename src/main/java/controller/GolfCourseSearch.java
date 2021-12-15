@@ -2,8 +2,7 @@ package controller;
 
 import entity.geo.*;
 import entity.google.Places;
-import entity.weather.HourItem;
-import entity.weather.Weather;
+import entity.weather.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
@@ -73,8 +72,9 @@ public class GolfCourseSearch extends HttpServlet {
             Places places = googleServiceDao.getPlaces(50, lat, lng);
             List<entity.google.ResultsItem> placesResults = places.getResults();
 
-            //Initialize the array of weather objects that will be
-            ArrayList<ArrayList<HashMap<String, String>>> weatherArray = new ArrayList<ArrayList<HashMap<String, String>>>();
+            //Create objects for the weatherArray, dailyForecastArray, and the HourlyDetailsMap objects
+            WeatherArray weatherArray = new WeatherArray();
+            List<DailyForecast> dailyForecastList = new ArrayList<DailyForecast>();
 
             for (entity.google.ResultsItem item : placesResults) {
 
@@ -93,20 +93,18 @@ public class GolfCourseSearch extends HttpServlet {
                 // SOURCE https://stackoverflow.com/questions/3504986/extract-time-from-date-string
                 List<HourItem> hourItems = itemWeather.getForecast().getForecastday().get(0).getHour();
 
+                DailyForecast daily = new DailyForecast();
+                List<HourlyDetailsMap> hourlyList = new ArrayList<HourlyDetailsMap>();
 
-                ArrayList<HashMap<String, String>> dailyForecastList = new ArrayList<HashMap<String, String>>();
                 for (HourItem itemHour : hourItems) {
 
                     //First, the current hour is retrieved in order to weed out any hours that don't apply
                     Date baseDate = Calendar.getInstance().getTime();
-                    logger.info("Base Date: " + baseDate);
 
-
-                    HashMap<String, String> hourlyDetailsMap = new HashMap<String, String>();
+                    HourlyDetailsMap hourlyMap = new HourlyDetailsMap();
 
                     //Convert and format hour
                     Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(itemHour.getTime());
-                    logger.info("Searched Date: " + date);
                     String hour = new SimpleDateFormat("H:mm").format(date);
                     //Retrieve rest of hourly weather details
                     double tempF = itemHour.getTempF();
@@ -125,29 +123,20 @@ public class GolfCourseSearch extends HttpServlet {
                     String stringPrecipitation = String.valueOf(precipitation);
 
                     //Put all string details into the hourlyDetailsMap
-                    hourlyDetailsMap.put("hour", hour);
-                    hourlyDetailsMap.put("tempF", stringTempF);
-                    hourlyDetailsMap.put("humidity", stringHumidity);
-                    hourlyDetailsMap.put("condition", condition);
-                    hourlyDetailsMap.put("icon", icon);
-                    hourlyDetailsMap.put("windSpeed", stringWindSpeed);
-                    hourlyDetailsMap.put("rainYesNo", stringRainYesNo);
-                    hourlyDetailsMap.put("precipitation", stringPrecipitation);
+                    hourlyMap.setHour(hour);
+                    hourlyMap.setIcon(icon);
+                    hourlyList.add(hourlyMap);
 
-
-                    if (date.compareTo(baseDate) > 0) {
-                        if () {
-                            logger.info("ADDED");
-                            dailyForecastList.add(hourlyDetailsMap);
-                        }
-                    }
-                logger.info("hourItems size: " + hourItems.size());
-                logger.info("dailForecastList size: " + dailyForecastList.size() + "\n\n\n");
                 }
-                weatherArray.add(dailyForecastList);
+                /****** END OF HOURLY WEATHER LOOP ******/
+                daily.setHourlyDetailsMap(hourlyList);
+                dailyForecastList.add(daily);
             }
+            /****** END OF SINGLE RESULT LOOP ******/
+            weatherArray.setDailyForecastItems(dailyForecastList);
 
-            logger.info("weatherArray size: " + weatherArray.size());
+            logger.info("weather: " + weatherArray);
+
             //Set the request attributes
             req.setAttribute("places", places);
             req.setAttribute("weather", weatherArray);
@@ -155,9 +144,11 @@ public class GolfCourseSearch extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        /****** END OF TRY/CATCH ******/
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("golfCourseResults.jsp");
         dispatcher.forward(req, resp);
     }
+    /****** END OF DO/GET METHOD *****/
 
 }
