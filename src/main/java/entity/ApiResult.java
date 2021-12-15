@@ -18,6 +18,18 @@ public class ApiResult {
     @JsonProperty("url")
     private String url;
 
+    @JsonProperty("place_id")
+    private String place_id;
+
+    @JsonProperty("lat")
+    private String lat;
+
+    @JsonProperty("lng")
+    private String lng;
+
+    @JsonProperty("rating")
+    private String rating;
+
     @JsonProperty("hourlyWeather")
     private List<HourlyDetails> hourlyWeather;
 
@@ -53,6 +65,38 @@ public class ApiResult {
         this.url = url;
     }
 
+    public String getPlace_id() {
+        return place_id;
+    }
+
+    public void setPlace_id(String place_id) {
+        this.place_id = place_id;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
     public List<HourlyDetails> getHourlyWeather() {
         return hourlyWeather;
     }
@@ -68,6 +112,10 @@ public class ApiResult {
                         "name = '" + name + '\'' +
                         "call = '" + call + '\'' +
                         "vicinity = '" + vicinity + '\'' +
+                        "place_id = '" + place_id + '\'' +
+                        "lat = '" + lat + '\'' +
+                        "lng = '" + lng + '\'' +
+                        "rating = '" + rating + '\'' +
                         "weatherArray = '" + hourlyWeather + '\'' +
                         "}";
     }

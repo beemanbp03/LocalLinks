@@ -3,34 +3,39 @@ package controller;
 import entity.ApiResult;
 import entity.HourlyDetails;
 import entity.details.Details;
-import entity.geo.*;
+import entity.geo.GeoCode;
+import entity.geo.ResultsItem;
 import entity.places.Places;
-import entity.weather.*;
+import entity.weather.HourItem;
+import entity.weather.Weather;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
-import persistence.SessionFactoryProvider;
 import persistence.ApiDao;
+import persistence.SessionFactoryProvider;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 
 @WebServlet(
-        urlPatterns = {"/golfCourseSearchResults"}
+        urlPatterns = {"/profile"}
 )
 
 /**
  * This servlet searches for golf courses and their weather based on a ZIP code entered by the user
  */
-public class GolfCourseSearch extends HttpServlet {
+public class Profile extends HttpServlet {
 
     //Instantiate class variables
     private final Logger logger = LogManager.getLogger(this.getClass());
@@ -91,15 +96,14 @@ public class GolfCourseSearch extends HttpServlet {
                     url = urlTemp;
                 }
                 String call = details.getResult().getFormattedPhoneNumber();
+
+                //retrieve the latitude and longitude from the item (ResultsItem)
                 double itemLat = item.getGeometry().getLocation().getLat();
-                String itemLatString = String.valueOf(itemLat);
                 double itemLng = item.getGeometry().getLocation().getLng();
-                String itemLngString = String.valueOf(itemLng);
-                String rating = String.valueOf(details.getResult().getUserRatingsTotal());
 
                 //Instantiate a Weather entity & make arrays for the hourly details
-                Weather itemWeather = apiServiceDao.getWeather(itemLat, itemLng);
 
+                Weather itemWeather = apiServiceDao.getWeather(itemLat, itemLng);
 
                 // SOURCE how to parse a String containing a date, then format it to only show the hour
                 // SOURCE https://stackoverflow.com/questions/3504986/extract-time-from-date-string
@@ -148,9 +152,6 @@ public class GolfCourseSearch extends HttpServlet {
                 linksResult.setCall(call);
                 linksResult.setUrl(url);
                 linksResult.setVicinity(vicinity);
-                linksResult.setLat(itemLatString);
-                linksResult.setLng(itemLngString);
-                linksResult.setRating(rating);
                 linksResult.setHourlyWeather(hourlyList);
                 resultsArray.add(linksResult);
                 counter++;

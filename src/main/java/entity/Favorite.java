@@ -13,6 +13,7 @@ import java.util.Objects;
 @Table(name = "favorites")
 public class Favorite {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
@@ -21,23 +22,14 @@ public class Favorite {
     @ManyToOne
     private User user;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "place_id")
+    private String place_id;
 
-    @Column(name = "phone")
-    private long phone;
+    @Column(name = "lat")
+    private String lat;
 
-    @Column(name = "address_1")
-    private String address1;
-
-    @Column(name = "zip_code")
-    private int zip_code;
-
-    @Column(name = "state")
-    private String state;
-
-    @Column(name = "distance")
-    private Double distance;
+    @Column(name = "lng")
+    private String lng;
 
     @Column(name = "rating")
     private Double rating;
@@ -48,13 +40,10 @@ public class Favorite {
     public Favorite() {
     }
 
-    public Favorite(String name, long phone, String address1, int zip_code, String state, Double distance, Double rating, User user) {
-        this.name = name;
-        this.phone = phone;
-        this.address1 = address1;
-        this.zip_code = zip_code;
-        this.state = state;
-        this.distance = distance;
+    public Favorite(String place_id, String lat, String lng, Double rating, User user) {
+        this.place_id = place_id;
+        this.lat = lat;
+        this.lng = lng;
         this.rating = rating;
         this.user = user;
     }
@@ -97,101 +86,28 @@ public class Favorite {
      */
     public int getUserId(){ return user.getId();}
 
-    /**
-     * GET for NAME instance variable
-     * @return name
-     */
-    public String getName() {
-        return name;
+    public String getPlace_id() {
+        return place_id;
     }
 
-    /**
-     * SET for NAME instance variable
-     * @param name
-     */
-    public void setName(String name) {
-        this.name = name;
+    public void setPlace_id(String place_id) {
+        this.place_id = place_id;
     }
 
-    /**
-     * GET for PHONE instance variable
-     * @return phone
-     */
-    public long getPhone() {
-        return phone;
+    public String getLat() {
+        return lat;
     }
 
-    /**
-     * SET for PHONE instance variable
-     * @param phone
-     */
-    public void setPhone(long phone) {
-        this.phone = phone;
+    public String getLng() {
+        return lng;
     }
 
-    /**
-     * GET for ADDRESS 1 instance variable
-     * @return address1
-     */
-    public String getAddress1() {
-        return address1;
+    public void setLng(String lng) {
+        this.lng = lng;
     }
 
-    /**
-     * SET for address1 instance variable
-     * @param address1
-     */
-    public void setAddress1(String address1) {
-        this.address1 = address1;
-    }
-
-
-    /**
-     * GET for ZIP_CODE instance variable
-     * @return zip_code
-     */
-    public int getZip_code() {
-        return zip_code;
-    }
-
-    /**
-     * SET for ZIP_CODE instance variable
-     * @param zip_code
-     */
-    public void setZip_code(int zip_code) {
-        this.zip_code = zip_code;
-    }
-
-    /**
-     * GET for STATE instance variable
-     * @return state
-     */
-    public String getState() {
-        return state;
-    }
-
-    /**
-     * SET for STATE instance variable
-     * @param state
-     */
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    /**
-     * GET for DISTANCE instance variable
-     * @return distance
-     */
-    public java.lang.Double getDistance() {
-        return distance;
-    }
-
-    /**
-     * SET for DISTANCE instance variable
-     * @param distance
-     */
-    public void setDistance(java.lang.Double distance) {
-        this.distance = distance;
+    public void setLat(String lat) {
+        this.lat = lat;
     }
 
     /**
@@ -216,18 +132,15 @@ public class Favorite {
         if (o == null || getClass() != o.getClass()) return false;
         Favorite favorite = (Favorite) o;
         return id == favorite.id &&
-                phone == favorite.phone &&
-                zip_code == favorite.zip_code &&
+                place_id == favorite.place_id &&
+                lat == favorite.lat &&
+                lng == favorite.lng &&
                 Objects.equals(user, favorite.user) &&
-                Objects.equals(name, favorite.name) &&
-                Objects.equals(address1, favorite.address1) &&
-                Objects.equals(state, favorite.state) &&
-                Objects.equals(distance, favorite.distance) &&
                 Objects.equals(rating, favorite.rating);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, name, phone, address1, zip_code, state, distance, rating);
+        return Objects.hash(id, user, place_id, lat, lng, rating);
     }
 }

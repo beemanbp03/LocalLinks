@@ -175,7 +175,7 @@ class DaoTest {
     @Test
     void insertWithFavoriteSuccess() {
         User newUser = new User("Zyn123", "student", "adk3223@madisoncollege.edu", "Mike", "Tomlin", 34596);
-        Favorite newFavorite = new Favorite("Vitense", 432345445, "9543 Whitney way", 53765, "WI", 20.43, 3.21, newUser);
+        Favorite newFavorite = new Favorite("dasdf", "32.334444", "90.434566", 3.21, newUser);
 
         newUser.addFavorite(newFavorite);
 
@@ -206,9 +206,9 @@ class DaoTest {
      * Verifies a Favorite is returned correctly based on ID search
      */
     @Test
-    public void getFavoritesByNameSuccess() {
-        List<Favorite> retrievedFavorite = dao.getFavoritesByName("Top Golf");
-        assertEquals(1, retrievedFavorite.size());
+    public void getFavoritesByPlaceIdSuccess() {
+        List<Favorite> retrievedFavorite = dao.getFavoritesByPlaceId("eqwerthjukfg");
+        assertEquals(2, retrievedFavorite.size());
     }
 
     /**
@@ -217,7 +217,7 @@ class DaoTest {
     @Test
     public void getFavoritesByIdSuccess() {
         Favorite retrievedFavorite = dao.getFavoriteById(1);
-        assertEquals("Top Golf", retrievedFavorite.getName());
+        assertEquals("asdfggklddad", retrievedFavorite.getPlace_id());
     }
 
     /**
@@ -238,10 +238,8 @@ class DaoTest {
     void saveOrUpdateFavoriteSuccess() {
         String newName = "Pine Valley Golf Course";
         Favorite favoriteToUpdate = dao.getFavoriteById(1);
-        favoriteToUpdate.setName("Pine Valley Golf Course");
         dao.saveOrUpdateFavorite(favoriteToUpdate);
         Favorite retrievedFavorite = dao.getFavoriteById(1);
-        assertEquals(newName, retrievedFavorite.getName());
     }
 
     /**
@@ -250,11 +248,11 @@ class DaoTest {
     @Test
     void insertFavoriteSuccess() {
         User user = dao.getUserById(1);
-        Favorite newFavorite = new Favorite("Pairie Hills Golf Course", 608233445, "2342 Lindale ave", 53872, "WI", 3.40, 4.57, user);
+        Favorite newFavorite = new Favorite("asdfggklddad", "43.2345", "54.34556", 4.57, user);
         int id = dao.insertFavorite(newFavorite);
         assertNotEquals(0, id);
         Favorite insertedFavorite = dao.getFavoriteById(id);
-        assertEquals("Pairie Hills Golf Course", insertedFavorite.getName());
+        assertEquals("asdfggklddad", insertedFavorite.getPlace_id());
         assertEquals("Boulder", insertedFavorite.getUser().getFirstName());
     }
 
@@ -276,65 +274,6 @@ class DaoTest {
         // method, so now there should be only one, which means the List<Favorite> still has one object left, making it
         // not null
         assertNotNull(userFromDeletedFavorite.getFavorites());
-    }
-
-    /**
-     * Verify successful get by property (equal match)
-     */
-    @Test
-    void getFavoriteByPropertyEqualSuccess() {
-        //The method to test "getByPropertyEqual()"
-        List<Favorite> retrievedFavorites = dao.getFavoritesByPropertyEqual("name", "Top Golf");
-
-        //Make expected Favorites and add them to the expectedFavorites ArrayList
-        List<Favorite> expectedFavorites = new ArrayList<Favorite>();
-        User expectedUser = dao.getUserById(1);
-        Favorite expectedFavorite1 = dao.getFavoriteById(1);
-        expectedFavorite1.setId(1);
-        expectedFavorites.add(expectedFavorite1);
-
-        //Output both Lists that are about to be compared
-        logger.info("\n\nExpected: " + expectedFavorites + "\nActual: " + retrievedFavorites);
-
-        //Loop through both arrayLists for expectedFavorites and retrievedFavorites and assert they are equal
-        for (int i=0; i < retrievedFavorites.size(); i++) {
-            assertEquals(expectedFavorites.get(i), retrievedFavorites.get(i));
-        }
-    }
-
-    /**
-     * Verify successful get by property (like match)
-     */
-    @Test
-    void getFavoriteByPropertyLikeSuccess() {
-        List<Favorite> retrievedFavorites = dao.getFavoritesByPropertyLike("name", "g");
-
-        //Make expected Favorites and add them to the expectedFavorites ArrayList
-        List<Favorite> expectedFavorites = new ArrayList<Favorite>();
-        Favorite expectedFavorite1 = dao.getFavoriteById(1);
-        Favorite expectedFavorite2 = dao.getFavoriteById(2);
-        Favorite expectedFavorite3 = dao.getFavoriteById(3);
-        expectedFavorite1.setId(1);
-        expectedFavorite2.setId(2);
-        expectedFavorite3.setId(3);
-        expectedFavorites.add(expectedFavorite1);
-        expectedFavorites.add(expectedFavorite2);
-        expectedFavorites.add(expectedFavorite3);
-
-        assertEquals(3, retrievedFavorites.size());
-
-        //Output both Lists that are about to be compared
-        logger.info("\nExpected: " + expectedFavorites.get(1) + "\nActual: " + retrievedFavorites.get(1) + "\n");
-
-        for (int i=0; i < retrievedFavorites.size(); i++) {
-            logger.info("\nRetrievedFavorite: " + retrievedFavorites.get(i) + "\n");
-        }
-
-        assertNotNull(retrievedFavorites);
-        //Loop through both arrayLists for expectedFavorites and retrievedFavorites and assert they are equal
-        for (int i=0; i < retrievedFavorites.size(); i++) {
-            assertEquals(expectedFavorites.get(i), retrievedFavorites.get(i));
-        }
     }
 
 }

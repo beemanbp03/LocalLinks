@@ -335,10 +335,10 @@ public class Dao {
 
     /**
      * get all Favorites using a lastName as the search term
-     * @param name String representing name to search for
+     * @param place_id String representing name to search for
      * @return List of Favorite objects with name of name param
      */
-    public List<Favorite> getFavoritesByName(String name) {
+    public List<Favorite> getFavoritesByPlaceId(String place_id) {
 
         //Create Connection
         Session session = sessionFactory.openSession();
@@ -348,8 +348,8 @@ public class Dao {
         //builds FROM clause
         Root<Favorite> root = query.from(Favorite.class);
         //By name
-        Expression<String> propertyPath = root.get("name");
-        query.where(builder.like(propertyPath, "%" + name + "%"));
+        Expression<String> propertyPath = root.get("place_id");
+        query.where(builder.like(propertyPath, "%" + place_id + "%"));
         //Specify running the query
         List<Favorite> Favorites = session.createQuery(query).getResultList();
         //Close session

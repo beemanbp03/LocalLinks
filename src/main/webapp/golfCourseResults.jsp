@@ -12,7 +12,11 @@
 
   <div class="container-fluid">
     <div class="row text-center">
-      <h1 class="col">Results</h1>
+      <div>
+        <form action="addToFavorites">
+          <button type="submite" name="submit" value="addFavorite">ADD ALL SELECTED FAVORITES TO DATABASE</button>
+        </form>
+      </div>
     </div>
     <br />
 
@@ -23,8 +27,17 @@
       <!-- RESULT -->
       <c:forEach var="result" items="${results}" varStatus="loop">
         <br />
-        <div class="container-fluid row justify-content-between mb-4">
-          <div class="rounded border border-5 container-fluid row col-10 justify-content-center">
+          <!-- Choosing the size of the result section based off the ability to add it to your favorites -->
+          <c:choose>
+            <c:when test="${userName != null}">
+            <div class="container-fluid row justify-content-between mb-4">
+            <div class="rounded border border-5 container-fluid row col-10 justify-content-center">
+            </c:when>
+            <c:otherwise>
+            <div class="container-fluid row justify-content-center mb-4">
+            <div class="rounded border border-5 container-fluid row col justify-content-center">
+            </c:otherwise>
+          </c:choose>
 
             <div class="row border-bottom">
               <div class="col justify-content-start">
@@ -64,9 +77,13 @@
             </div>
           </div>
 
-          <button class="rounded border border-5 btn btn-outline-success col-2" type="button" name="addToFavorites">
-            <span><i class="fa fa-plus fa-5x"></i></span>
-          </button>
+          <c:if test="${userName != null}">
+
+              <button class="rounded border border-5 btn btn-outline-success col-2" type="submit" name="submit" value="addToFavorites" >
+                <span><i class="fa fa-plus fa-5x"></i></span>
+              </button>
+
+          </c:if>
 
         </div>
       </c:forEach>

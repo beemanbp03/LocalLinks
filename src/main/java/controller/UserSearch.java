@@ -44,63 +44,68 @@ public class UserSearch extends HttpServlet {
         String searchTermFavorite = req.getParameter("searchTermFavorite");
         String searchTypeFavorite = req.getParameter("searchTypeFavorite");
 
+        try {
+            /**
+             * Section that supplies the userResults.jsp with User data
+             */
+            if ( req.getParameter("submit").equals("searchUser")) {
 
-        /**
-         * Section that supplies the userResults.jsp with User data
-         */
-        if ( req.getParameter("submit").equals("searchUser")) {
+                if (searchTypeUser.equals("id")) {
+                    try {
+                        int id = Integer.parseInt(searchTermUser);
+                        req.setAttribute("user", dao.getUserById(id));
+                    } catch(Exception e) {
+                        logger.debug("SOME SORT OF ERROR HAPPENED", e);
+                    }
 
-            if (searchTypeUser.equals("id")) {
-                try {
-                    int id = Integer.parseInt(searchTermUser);
-                    req.setAttribute("user", dao.getUserById(id));
-                } catch(Exception e) {
-                    logger.debug("SOME SORT OF ERROR HAPPENED", e);
-                }
+                } else if (searchTypeUser.equals("user_name")) {
 
-            } else if (searchTypeUser.equals("user_name")) {
+                    req.setAttribute("users", dao.getUserByUsername(searchTermUser));
 
-                req.setAttribute("users", dao.getUserByUsername(searchTermUser));
+                } else if (searchTypeUser.equals("first_name")) {
 
-            } else if (searchTypeUser.equals("first_name")) {
+                    req.setAttribute("users", dao.getUserByFirstName(searchTermUser));
 
-                req.setAttribute("users", dao.getUserByFirstName(searchTermUser));
+                } else if (searchTypeUser.equals("last_name")) {
 
-            } else if (searchTypeUser.equals("last_name")) {
-
-                req.setAttribute("users", dao.getUserByLastName(searchTermUser));
-
-            }
-
-        }
-        /**
-         * Section that Supplies the userResults.jsp with ALL USERS
-         */
-        else if (req.getParameter("submit").equals("searchUserAll")) {
-            req.setAttribute("user", dao.getAllUsers());
-        }
-        /**
-         * Section that supplies the userResults.jsp with Favorites data
-         */
-        else if (req.getParameter("submit").equals("searchFavorite")){
-            if (searchTypeFavorite != null) {
-                if (searchTypeFavorite.equals("id")) {
-
-                    req.setAttribute("favorites", dao.getFavoriteById(Integer.parseInt(searchTermUser)));
-
-                } else if (searchTypeFavorite.equals("name")) {
-
-                    req.setAttribute("favorites", dao.getFavoritesByName(searchTermUser));
+                    req.setAttribute("users", dao.getUserByLastName(searchTermUser));
 
                 }
+
             }
+            /**
+             * Section that Supplies the userResults.jsp with ALL USERS
+             */
+            else if (req.getParameter("submit").equals("searchUserAll")) {
+                req.setAttribute("user", dao.getAllUsers());
+            }
+            /**
+             * Section that supplies the userResults.jsp with Favorites data
+             */
+            else if (req.getParameter("submit").equals("searchFavorite")){
+                if (searchTypeFavorite != null) {
+                    if (searchTypeFavorite.equals("id")) {
+
+                        req.setAttribute("favorites", dao.getFavoriteById(Integer.parseInt(searchTermFavorite)));
+
+                    } else if (searchTypeFavorite.equals("name")) {
+
+                        req.setAttribute("favorites", dao.getFavoritesByPlaceId(searchTermUser));
+
+                    }
+                }
+            }
+            /**
+             * Section that supplies the userResults.jsp with ALL rows of Favorites in the database
+             */
+            else if (req.getParameter("submit").equals("searchFavoriteAll")) {
+                req.setAttribute("favorites", dao.getAllFavorites());
+            }
+        } catch (Exception e) {
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/error.jsp");
+            dispatcher.forward(req, resp);
         }
-        /**
-         * Section that supplies the userResults.jsp with ALL rows of Favorites in the database
-         */
-        else if (req.getParameter("submit").equals("searchFavoriteAll")) {
-            req.setAttribute("favorites", dao.getAllFavorites());
-        }
+
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/userResults.jsp");
         dispatcher.forward(req, resp);

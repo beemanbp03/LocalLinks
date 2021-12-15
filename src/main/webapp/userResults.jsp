@@ -52,24 +52,18 @@
         <thead>
         <th>ID</th>
         <th>Name</th>
-        <th>Address</th>
-        <th>ZIP Code</th>
-        <th>State</th>
-        <th>Distance</th>
-        <th>Rating</th>
-        <th>Owner Id</th>
+        <th>Place_Id</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
         </thead>
         <tbody>
         ${favorites}
         <c:forEach var="favorite" items="${favorites}">
           <tr>
             <td>${favorite.id}</td>
-            <td>${favorite.name}</td>
-            <td>${favorite.address1}</td>
-            <td>${favorite.zip_code}</td>
-            <td>${favorite.state}</td>
-            <td>${favorite.distance}</td>
-            <td>${favorite.rating}</td>
+            <td>${favorite.place_id}</td>
+            <td>${favorite.lat}</td>
+            <td>${favorite.lng}</td>
             <td>${favorite.user.userName}</td>
           </tr>
 

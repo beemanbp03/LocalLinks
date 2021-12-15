@@ -44,9 +44,7 @@
                   </div>
 
                   <div class="d-flex justify-content-center">
-                  <button class="mt-1 mb-3 btn btn-outline-success rounded" type="submit" name="searchCurrentLocation">
-                    Use Current Location
-                  </button>
+                  <!-- CURRENT LOCATION BUTTON -->>
                   </div>
 
                 </form>

@@ -38,12 +38,12 @@
           <div class="form-group">
               <label for="searchByFavoriteId">Favorite ID</label>
               <input type="radio" id="searchByFavoriteId" name="searchTypeFavorite" value="id" pattern="\d*" required/>
-              <label for="searchByUsername">Name</label>
-              <input type="radio" id="searchByName" name="searchTypeFavorite" value="name" required/>
-              <label for="searchByFirstName">Distance</label>
-              <input type="radio" id="searchByDistance" name="searchTypeFavorite" value="distance" required/>
-              <label for="searchByLastName">Rating</label>
-              <input type="radio" id="searchByRating" name="searchTypeFavorite" value="rating" required/>
+              <label for="searchByUsername">Place_Id</label>
+              <input type="radio" id="searchByName" name="searchTypeFavorite" value="place_id" required/>
+              <label for="searchByFirstName">Latitude</label>
+              <input type="radio" id="searchByDistance" name="searchTypeFavorite" value="lat" required/>
+              <label for="searchByLastName">Longitude</label>
+              <input type="radio" id="searchByRating" name="searchTypeFavorite" value="lng" required/>
 
               <input type="text" class="form-control" id="searchTermFavorite" name="searchTerm" aria-describedby="searchTermHelp" placeholder="enter search term here" required/>
           </div>
