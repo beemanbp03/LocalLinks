@@ -3,7 +3,7 @@ package entity.details;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Response{
+public class Details{
 
 	@JsonProperty("result")
 	private Result result;
@@ -41,7 +41,7 @@ public class Response{
 	@Override
  	public String toString(){
 		return 
-			"Response{" + 
+			"Details{" + 
 			"result = '" + result + '\'' + 
 			",html_attributions = '" + htmlAttributions + '\'' + 
 			",status = '" + status + '\'' + 

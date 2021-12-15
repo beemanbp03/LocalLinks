@@ -43,7 +43,7 @@ public class ApiDao implements PropertiesLoader {
      * This DAO handles all Google Details API functionality
      */
 
-    public Response getDetails(String placeIdParam) throws Exception {
+    public Details getDetails(String placeIdParam) throws Exception {
         Properties properties = loadProperties("/api.properties");
         String placeId = placeIdParam;
         Client client = ClientBuilder.newClient();
@@ -52,9 +52,9 @@ public class ApiDao implements PropertiesLoader {
         String response = target.request(MediaType.APPLICATION_JSON).get(String.class);
 
         ObjectMapper mapper = new ObjectMapper();
-        Response responseToReturn = null;
+        Details responseToReturn = null;
         try {
-            responseToReturn = mapper.readValue(response, Response.class);
+            responseToReturn = mapper.readValue(response, Details.class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

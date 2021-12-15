@@ -77,6 +77,9 @@ public class Result{
 	@JsonProperty("place_id")
 	private String placeId;
 
+	@JsonProperty("permanently_closed")
+	private String permanentlyClosed;
+
 	public void setUtcOffset(int utcOffset){
 		this.utcOffset = utcOffset;
 	}
@@ -269,6 +272,14 @@ public class Result{
 		return placeId;
 	}
 
+	public String getPermanentlyClosed() {
+		return permanentlyClosed;
+	}
+
+	public void setPermanentlyClosed(String permanentlyClosed) {
+		this.permanentlyClosed = permanentlyClosed;
+	}
+
 	@Override
  	public String toString(){
 		return 
@@ -296,7 +307,8 @@ public class Result{
 			",plus_code = '" + plusCode + '\'' + 
 			",formatted_phone_number = '" + formattedPhoneNumber + '\'' + 
 			",international_phone_number = '" + internationalPhoneNumber + '\'' + 
-			",place_id = '" + placeId + '\'' + 
+			",place_id = '" + placeId + '\'' +
+			",permanently_closed = '" + permanentlyClosed + '\'' +
 			"}";
 		}
 }

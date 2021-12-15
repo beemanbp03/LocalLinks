@@ -2,7 +2,7 @@ package controller;
 
 import entity.ApiResult;
 import entity.HourlyDetails;
-import entity.details.Response;
+import entity.details.Details;
 import entity.geo.*;
 import entity.places.Places;
 import entity.weather.*;
@@ -80,10 +80,16 @@ public class GolfCourseSearch extends HttpServlet {
 
                 //Instantiate variables for ApiResult.name, direction, and call instance variables
                 String placeId = item.getPlaceId();
-                Response details = apiServiceDao.getDetails(placeId);
+                Details details = apiServiceDao.getDetails(placeId);
                 String name = item.getName();
                 String vicinity = String.valueOf(item.getVicinity());
-                String url = details.getResult().getUrl();
+                String urlTemp = details.getResult().getUrl();
+                String url;
+                if (urlTemp == null) {
+                    url = "";
+                } else {
+                    url = urlTemp;
+                }
                 String call = details.getResult().getFormattedPhoneNumber();
 
                 //retrieve the latitude and longitude from the item (ResultsItem)
