@@ -9,7 +9,7 @@
                 <a class="btn btn-outline-success me-1 mt-1" href="searchUsers.jsp">Admin</a>
             </c:if>
             <c:if test="${userName != null}">
-                <a class="btn btn-outline-success me-1 mt-1" href="profile.jsp">Profile</a>
+                <a class="btn btn-outline-success me-1 mt-1" href="profile">Profile</a>
             </c:if>
 
         </li>

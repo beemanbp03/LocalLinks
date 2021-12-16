@@ -24,10 +24,11 @@
       <h2>Your Favorites</h2>
       <!-- Start of Results Section -->
       <div class="row justify-content-center">
+
         <!-- Individual Results -->
 
         <!-- RESULT -->
-        <c:forEach var="favorite" items="${favorites}" varStatus="loop">
+        <c:forEach var="result" items="${favorites}" varStatus="loop">
         <br />
         <!-- Choosing the size of the result section based off the ability to add it to your favorites -->
         <c:choose>
@@ -43,15 +44,16 @@
 
                 <div class="row border-bottom">
                   <div class="col justify-content-start">
-                    <h1>${favorite.name}</h1>
+                    <h1>${result.name}</h1>
                   </div>
+
                   <div class="col text-end">
-                    <a href="${favorite.url}">
+                    <a href="${result.url}">
                       <button type="button" name="getDirections" class="btn btn-outline-success m-2">
                         Directions
                       </button>
                     </a>
-                    <a href="tel:${favorite.call}">
+                    <a href="tel:${result.call}">
                       <button type="button" name="getCallLink" class="btn btn-outline-success m-2">
                         Call
                       </button>
@@ -62,7 +64,7 @@
                 <div class="row">
                   <div class="container col-12">
                     <div class="row text-center">
-                      <c:forEach var="item" items="${favorite.hourlyWeather}" varStatus="loopCount">
+                      <c:forEach var="item" items="${favorites.get(loop.index).hourlyWeather}" varStatus="loopCount">
                         <c:if test="${loopCount.index > 6 && loopCount.index < 19}">
                           <div class="col m-1">
                             <i><img alt="picture depicting weather" src="${item.icon}" /></i>
@@ -81,8 +83,8 @@
 
               <c:if test="${userName != null}">
 
-                <button class="rounded border border-5 btn btn-outline-success col-2" type="submit" name="submit" value="addToFavorites" >
-                  <span><i class="fa fa-plus fa-5x"></i></span>
+                <button class="rounded border border-5 btn btn-outline-danger col-2" type="submit" name="submit" value="addToFavorites" >
+                  <span><i class="fa fa-minus fa-5x"></i></span>
                 </button>
 
               </c:if>
@@ -90,6 +92,7 @@
             </div>
             </c:forEach>
             <!-- END RESULT -->
+
             <br />
             <br />
           </div>

@@ -50,6 +50,7 @@ public class Favorite {
 
     /**
      * GET for ID instance variable
+     *
      * @return id
      */
     public int getId() {
@@ -58,6 +59,7 @@ public class Favorite {
 
     /**
      * SET for ID instance variable
+     *
      * @param id
      */
     public void setId(int id) {
@@ -66,6 +68,7 @@ public class Favorite {
 
     /**
      * GET for USER instance variable
+     *
      * @return user
      */
     public User getUser() {
@@ -74,6 +77,7 @@ public class Favorite {
 
     /**
      * SET for USER instance variable
+     *
      * @param user
      */
     public void setUser(User user) {
@@ -82,9 +86,12 @@ public class Favorite {
 
     /**
      * GET for the user instance object's id instance variable
+     *
      * @return id of user instance object
      */
-    public int getUserId(){ return user.getId();}
+    public int getUserId() {
+        return user.getId();
+    }
 
     public String getPlace_id() {
         return place_id;
@@ -112,6 +119,7 @@ public class Favorite {
 
     /**
      * GET for RATING instance variable
+     *
      * @return
      */
     public Double getRating() {
@@ -120,6 +128,7 @@ public class Favorite {
 
     /**
      * SET for RATING instance variable
+     *
      * @param rating
      */
     public void setRating(Double rating) {
@@ -143,4 +152,19 @@ public class Favorite {
     public int hashCode() {
         return Objects.hash(id, user, place_id, lat, lng, rating);
     }
+
+    @Override
+    public String toString(){
+        return
+                "Favorite{" +
+                        "name='" + place_id + '\'' +
+                        "call='" + lat + '\'' +
+                        "vicinity='" + lng + '\'' +
+                        "place_id='" + rating + '\'' +
+                        "lat='" + lat + '\'' +
+                        "lng='" + lng + '\'' +
+                        "rating='" + rating + '\'' +
+                        "}";
+    }
+
 }

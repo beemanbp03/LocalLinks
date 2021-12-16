@@ -109,6 +109,7 @@ public class GolfCourseSearch extends HttpServlet {
             ApiResult linksResult = fetchWeather(itemLat, itemLng);
             //Store all variables into the single ApiResult object
             linksResult.setName(name);
+            linksResult.setPlace_id(placeId);
             linksResult.setCall(call);
             linksResult.setUrl(url);
             linksResult.setVicinity(vicinity);

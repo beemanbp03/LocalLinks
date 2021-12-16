@@ -113,6 +113,7 @@ public class ApiResult {
                         "call = '" + call + '\'' +
                         "vicinity = '" + vicinity + '\'' +
                         "place_id = '" + place_id + '\'' +
+                        "url = '" + url + '\'' +
                         "lat = '" + lat + '\'' +
                         "lng = '" + lng + '\'' +
                         "rating = '" + rating + '\'' +
