@@ -86,15 +86,20 @@ public class LoginAuth extends HttpServlet implements PropertiesLoader {
             HttpRequest authRequest = buildAuthRequest(authCode);
             try {
                 Dao dao = new Dao();
+                HttpSession session = req.getSession();
+
+                //Set userName as session variable
                 TokenResponse tokenResponse = getToken(authRequest);
                 userName = validate(tokenResponse);
-                List<User> user = dao.getUserByUsername(userName);
-
-                HttpSession session = req.getSession();
                 session.setAttribute("userName", userName);
                 req.setAttribute("userName", userName);
+
+                //Set User as session variable
+                List<User> users = dao.getUserByUsername(userName);
+                User user = users.get(0);
                 session.setAttribute("user", user);
                 logger.info("USER: " + user);
+
             } catch (IOException e) {
                 logger.error("Error getting or validating the token: " + e.getMessage(), e);
                 RequestDispatcher dispatcher = req.getRequestDispatcher("error.jsp");

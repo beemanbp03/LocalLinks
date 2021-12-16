@@ -214,14 +214,12 @@ public class User {
 
     @Override
     public String toString() {
-        return "User {" +
-                "userID=" + id + "\"" +
-                ", userName=" + userName + "\"" +
-                ", password=" + password + "\"" +
-                ", email=" + email + "\"" +
-                ", firstName=" + firstName + "\"" +
-                ", lastName=" + lastName + "\"" +
-                ", zipCode=" + zipCode + "\"" +
+        return "User{" +
+                "userName = '" + userName+ '\'' +
+                "password = '" + password + '\'' +
+                "firstName = '" + firstName + '\'' +
+                "lastName = '" + lastName + '\'' +
+                "zipCode = '" + zipCode + '\'' +
                 "}";
     }
 
