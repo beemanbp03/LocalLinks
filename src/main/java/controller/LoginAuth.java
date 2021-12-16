@@ -6,6 +6,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import auth.*;
+import entity.User;
+import persistence.Dao;
 import util.PropertiesLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -83,12 +85,16 @@ public class LoginAuth extends HttpServlet implements PropertiesLoader {
         } else {
             HttpRequest authRequest = buildAuthRequest(authCode);
             try {
+                Dao dao = new Dao();
                 TokenResponse tokenResponse = getToken(authRequest);
                 userName = validate(tokenResponse);
+                List<User> user = dao.getUserByUsername(userName);
 
                 HttpSession session = req.getSession();
                 session.setAttribute("userName", userName);
                 req.setAttribute("userName", userName);
+                session.setAttribute("user", user);
+                logger.info("USER: " + user);
             } catch (IOException e) {
                 logger.error("Error getting or validating the token: " + e.getMessage(), e);
                 RequestDispatcher dispatcher = req.getRequestDispatcher("error.jsp");

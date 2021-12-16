@@ -23,7 +23,7 @@ public class ApiDao implements PropertiesLoader {
 
     public Places getPlaces(int distance, double lat, double lng) throws Exception {
         Properties properties = loadProperties("/api.properties");
-        int distanceInMeters = convertMilesToMeters(distance);
+        String distanceInMeters = String.valueOf(convertMilesToMeters(distance));
         Client client = ClientBuilder.newClient();
         WebTarget target =
                 client.target("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat + "," + lng + "&radius=" + distanceInMeters + "&keyword=public%20golf%20course&key=" + properties.getProperty("google.key"));

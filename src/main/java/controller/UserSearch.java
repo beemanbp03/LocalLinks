@@ -60,15 +60,15 @@ public class UserSearch extends HttpServlet {
 
                 } else if (searchTypeUser.equals("user_name")) {
 
-                    req.setAttribute("users", dao.getUserByUsername(searchTermUser));
+                    req.setAttribute("user", dao.getUserByUsername(searchTermUser));
 
                 } else if (searchTypeUser.equals("first_name")) {
 
-                    req.setAttribute("users", dao.getUserByFirstName(searchTermUser));
+                    req.setAttribute("user", dao.getUserByFirstName(searchTermUser));
 
                 } else if (searchTypeUser.equals("last_name")) {
 
-                    req.setAttribute("users", dao.getUserByLastName(searchTermUser));
+                    req.setAttribute("user", dao.getUserByLastName(searchTermUser));
 
                 }
 
@@ -77,7 +77,7 @@ public class UserSearch extends HttpServlet {
              * Section that Supplies the userResults.jsp with ALL USERS
              */
             else if (req.getParameter("submit").equals("searchUserAll")) {
-                req.setAttribute("user", dao.getAllUsers());
+                req.setAttribute("users", dao.getAllUsers());
             }
             /**
              * Section that supplies the userResults.jsp with Favorites data

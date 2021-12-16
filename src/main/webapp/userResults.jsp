@@ -57,7 +57,6 @@
         <th>Longitude</th>
         </thead>
         <tbody>
-        ${favorites}
         <c:forEach var="favorite" items="${favorites}">
           <tr>
             <td>${favorite.id}</td>

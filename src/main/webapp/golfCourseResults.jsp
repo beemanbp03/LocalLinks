@@ -13,9 +13,11 @@
   <div class="container-fluid">
     <div class="row text-center">
       <div>
-        <form action="addToFavorites">
-          <button type="submite" name="submit" value="addFavorite">ADD ALL SELECTED FAVORITES TO DATABASE</button>
-        </form>
+      <c:if test="${userName != null}">
+          <form action="addToFavorites">
+              <button class="brn btn-success" type="submit" name="submit" value="addFavorite">ADD ALL SELECTED FAVORITES TO DATABASE</button>
+          </form>
+      </c:if>
       </div>
     </div>
     <br />

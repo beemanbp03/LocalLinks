@@ -9,64 +9,91 @@
   <body>
 
     <div class="container-fluid">
-      <h2>Your Profile</h2>
-      <!-- USER RESULTS TABLE -->
-      <table id="userTable" class="display" cellspacing="0" width="100%">
-        <thead>
-        <th>ID</th>
-        <th>Username</th>
-        <th>Password</th>
-        <th>Email</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>ZIP Code</th>
-        </thead>
-        <tbody>
-          <tr>
-            <td>${user.id}</td>
-            <td>${user.userName}</td>
-            <td>${user.password}</td>
-            <td>${user.email}</td>
-            <td>${user.firstName}</td>
-            <td>${user.lastName}</td>
-            <td>${user.zipCode}</td>
-          </tr>
-        </tbody>
-      </table>
+      <h2 class="text-center">Your Profile</h2>
+      <div class="row justify-content-center text-center">
+        <div class="col-6">
+          <p>Username: ${user.userName}</p>
+          <p>First Name: ${user.firstName}</p
+          <p>Last Name: ${user.lastName}</p>
+          <p>Zip Code: ${user.zipCode}</p>
+        </div>
+      </div>
 
       <br />
-      <br />
 
-      <h2>Favorite</h2>
-      <!-- FAVORITES RESULTS TABLE -->
-      <table id="favoriteTable" class="display" cellspacing="0" width="100%">
-        <thead>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Address</th>
-        <th>ZIP Code</th>
-        <th>State</th>
-        <th>Distance</th>
-        <th>Rating</th>
-        <th>Owner Id</th>
-        </thead>
-        <tbody>
-        ${favorites}
-        <c:forEach var="favorite" items="${favorites}">
-          <tr>
-            <td>${favorite.id}</td>
-            <td>${favorite.name}</td>
-            <td>${favorite.address1}</td>
-            <td>${favorite.zip_code}</td>
-            <td>${favorite.state}</td>
-            <td>${favorite.distance}</td>
-            <td>${favorite.rating}</td>
-            <td>${favorite.user.userName}</td>
-          </tr>
+      <h2>Your Favorites</h2>
+      <!-- Start of Results Section -->
+      <div class="row justify-content-center">
+        <!-- Individual Results -->
 
-        </c:forEach>
-        </tbody>
-      </table>
+        <!-- RESULT -->
+        <c:forEach var="favorite" items="${favorites}" varStatus="loop">
+        <br />
+        <!-- Choosing the size of the result section based off the ability to add it to your favorites -->
+        <c:choose>
+        <c:when test="${userName != null}">
+        <div class="container-fluid row justify-content-between mb-4">
+          <div class="rounded border border-5 container-fluid row col-10 justify-content-center">
+            </c:when>
+            <c:otherwise>
+            <div class="container-fluid row justify-content-center mb-4">
+              <div class="rounded border border-5 container-fluid row col justify-content-center">
+                </c:otherwise>
+                </c:choose>
+
+                <div class="row border-bottom">
+                  <div class="col justify-content-start">
+                    <h1>${favorite.name}</h1>
+                  </div>
+                  <div class="col text-end">
+                    <a href="${favorite.url}">
+                      <button type="button" name="getDirections" class="btn btn-outline-success m-2">
+                        Directions
+                      </button>
+                    </a>
+                    <a href="tel:${favorite.call}">
+                      <button type="button" name="getCallLink" class="btn btn-outline-success m-2">
+                        Call
+                      </button>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="container col-12">
+                    <div class="row text-center">
+                      <c:forEach var="item" items="${favorite.hourlyWeather}" varStatus="loopCount">
+                        <c:if test="${loopCount.index > 6 && loopCount.index < 19}">
+                          <div class="col m-1">
+                            <i><img alt="picture depicting weather" src="${item.icon}" /></i>
+                            <p>${item.hour}</p>
+                            <p>${item.windSpeed}mph</p>
+                            <p>${item.precipitation}in.</p>
+                          </div>
+                        </c:if>
+
+
+                      </c:forEach>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <c:if test="${userName != null}">
+
+                <button class="rounded border border-5 btn btn-outline-success col-2" type="submit" name="submit" value="addToFavorites" >
+                  <span><i class="fa fa-plus fa-5x"></i></span>
+                </button>
+
+              </c:if>
+
+            </div>
+            </c:forEach>
+            <!-- END RESULT -->
+            <br />
+            <br />
+          </div>
+          <!-- END Individual Results -->
 
     </div>
 

@@ -36,7 +36,7 @@ public class WebServiceDaoTest {
         List<entity.places.ResultsItem> results = places.getResults();
 
         //Assertions
-        assertEquals("Hickory Grove Golf & Country Club", results.get(0).getName());
+        assertNotNull(results.get(0).getName());
     }
 
     /**

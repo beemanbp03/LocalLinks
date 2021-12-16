@@ -37,14 +37,14 @@
                   <br />
 
                   <div class="d-flex justify-content-center">
-                    <input id="zipCode" class="mt-4 mb-4 form-control text-center " style="width: 10em;" type="text" name="zipCodeSearch" placeholder="Enter ZIP Code" />
+                    <input id="zipCode" class="mt-4 mb-4 form-control text-center " style="width: 10em;" type="text" name="zipCodeSearch" placeholder="Enter ZIP Code" required/>
                     <button class="mt-4 mb-4 btn btn-outline-success rounded" type="submit" name="submit" value="Search">
                       Search
                     </button>
                   </div>
 
                   <div class="d-flex justify-content-center">
-                  <!-- CURRENT LOCATION BUTTON -->>
+                  <!-- CURRENT LOCATION BUTTON -->
                   </div>
 
                 </form>
