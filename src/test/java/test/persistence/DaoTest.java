@@ -208,7 +208,7 @@ class DaoTest {
     @Test
     public void getFavoritesByPlaceIdSuccess() {
         List<Favorite> retrievedFavorite = dao.getFavoritesByPlaceId("eqwerthjukfg");
-        assertEquals(2, retrievedFavorite.size());
+        assertEquals(1, retrievedFavorite.size());
     }
 
     /**
@@ -217,7 +217,7 @@ class DaoTest {
     @Test
     public void getFavoritesByIdSuccess() {
         Favorite retrievedFavorite = dao.getFavoriteById(1);
-        assertEquals("asdfggklddad", retrievedFavorite.getPlace_id());
+        assertEquals("ChIJneNErqPj_IcRNncvPfRAIWY", retrievedFavorite.getPlace_id());
     }
 
     /**
@@ -226,9 +226,9 @@ class DaoTest {
     @Test
     public void getFavoritesByUserIdSuccess() {
         User user = dao.getFavoriteById(1).getUser();
-        Set<Favorite> favorites = new HashSet<>();
+        List<Favorite> favorites = new ArrayList<>();
         favorites = dao.getFavoritesByUserId(user);
-        assertNotNull(favorites);
+        assertEquals(2, favorites.size());
     }
 
     /**

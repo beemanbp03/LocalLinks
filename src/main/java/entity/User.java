@@ -38,7 +38,7 @@ public class User {
 
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<Favorite> favorites = new HashSet<>();
+    private List<Favorite> favorites = new ArrayList<>();
 
     /**
      * Instantiates a new User
@@ -180,7 +180,7 @@ public class User {
      * SET for favorites instance variable
      * @return favorites HashSet
      */
-    public Set<Favorite> getFavorites() {
+    public List<Favorite> getFavorites() {
         return favorites;
     }
 
@@ -188,7 +188,7 @@ public class User {
      * SET for favorites instance variable
      * @param favorites
      */
-    public void setFavorites(Set<Favorite> favorites) {
+    public void setFavorites(List<Favorite> favorites) {
         this.favorites = favorites;
     }
 

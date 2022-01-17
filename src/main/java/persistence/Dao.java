@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -389,7 +390,7 @@ public class Dao {
     /**                                           Get By User id (foreign key)                                        */
 
 
-    public Set<Favorite> getFavoritesByUserId(User user) {
+    public List<Favorite> getFavoritesByUserId(User user) {
         String userId = String.valueOf(user.getId());
         //Create Connection
         Session session = sessionFactory.openSession();
@@ -397,13 +398,12 @@ public class Dao {
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Favorite> query = builder.createQuery(Favorite.class);
         //builds FROM clause
-        Root<Favorite> root = query.from(Favorite.class);
-        //By user
-        Path<Favorite> propertyPath = root.join("user").get("id");
-        query.select(propertyPath);
+        Root<Favorite> root = query.from( Favorite.class );
+        query.where(builder.equal(root.get("user"), user));
+
         //Specify running the query
         List<Favorite> favorites = session.createQuery(query).getResultList();
-        Set<Favorite> favoritesSet = new HashSet<>(favorites);
+        List<Favorite> favoritesSet = new ArrayList<>(favorites);
 
         //Close session
         session.close();
