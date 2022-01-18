@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.*;
 
 //Annotations making it easier to get to this servlet on a browser
 @WebServlet(
@@ -33,9 +34,21 @@ public class DynamicDaoServlet extends HttpServlet implements PropertiesLoader {
     public void doGet(HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
 
-        String message = req.getParameter("message");
+        Set<String> paramNameList = new HashSet<>();
+        List<String> attrList = new ArrayList<String>();
 
-        req.setAttribute("message", message);
+        Enumeration<String> requestParameters = (Enumeration<String>)req.getParameterNames();
+
+        while (requestParameters.hasMoreElements()) {
+            paramNameList.add((String)requestParameters.nextElement());
+        }
+
+        for (String item : paramNameList) {
+            String attribute = req.getParameter(item);
+            attrList.add(attribute);
+        }
+
+        req.setAttribute("attributeList", attrList);
 
         String url = "/addFavoritesSuccess.jsp";
 

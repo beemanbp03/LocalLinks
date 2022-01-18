@@ -14,17 +14,18 @@
     <div class="row text-center">
       <div>
       <c:if test="${userName != null}">
-
-          <form id="addToFavorites" action="addToFavorites" method="get">
-              <input type="hidden" name="message" var="message" value="HELLO WORLD"/>
+          <!--
+          <form id="testAddToFavoritesForm" action="addToFavorites" method="get">
               <button class="brn btn-success" type="submit" name="submit" value="addFavorite">ADD ALL SELECTED FAVORITES TO DATABASE</button>
           </form>
+          -->
       </c:if>
       </div>
     </div>
     <br />
 
     <!-- Start of Results Section -->
+    <form id="addToFavorites" action="addToFavorites" method="get">
     <div class="row justify-content-center">
       <!-- Individual Results -->
 
@@ -34,7 +35,7 @@
           <!-- Choosing the size of the result section based off the ability to add it to your favorites -->
           <c:choose>
             <c:when test="${userName != null}">
-            <div class="container-fluid row justify-content-between mb-4">
+            <form class="container-fluid row justify-content-between mb-4">
             <div class="rounded border border-5 container-fluid row col-10 justify-content-center">
             </c:when>
             <c:otherwise>
@@ -83,8 +84,8 @@
           </div>
 
           <c:if test="${userName != null}">
-            <input type="hidden" name="${result.place_id} "value="{place_id = '${result.place_id}'}"/>
-              <button form="addToFavorites" class="rounded border border-5 btn btn-outline-success col-2" type="submit" name="addFavorite" value="no" formaction="addToFavorites" formmethod="post" >
+            <input type="hidden" name="result.${result.place_id}" value="${result.place_id}, ${result.lat}, ${result.lng}"/>
+              <button class="rounded border border-5 btn btn-outline-success col-2" type="submit" name="submit">
                 <span><i class="fa fa-plus fa-5x"></i></span>
               </button>
 
@@ -96,6 +97,7 @@
       <br />
       <br />
     </div>
+            </form>
     <!-- END Individual Results -->
 
   </div>

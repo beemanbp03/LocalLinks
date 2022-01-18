@@ -13,7 +13,7 @@
         <section>
             <h1 style="color: green;">SUCCESS!!</h1>
             <br>
-            <p style="font-size: 32px;">MESSAGE: ${message}</p>
+            <p style="font-size: 32px;">MESSAGE: ${attributeList}</p>
         </section>
     </body>
 </html>
