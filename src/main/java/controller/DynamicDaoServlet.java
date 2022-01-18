@@ -18,7 +18,7 @@ import java.io.IOException;
 )
 
 /**
- * This class simply forwards to the home page after the application startup
+ * This class adds favorites to the database
  */
 public class DynamicDaoServlet extends HttpServlet implements PropertiesLoader {
 
@@ -32,6 +32,10 @@ public class DynamicDaoServlet extends HttpServlet implements PropertiesLoader {
      */
     public void doGet(HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
+
+        String message = req.getParameter("message");
+
+        req.setAttribute("message", message);
 
         String url = "/addFavoritesSuccess.jsp";
 

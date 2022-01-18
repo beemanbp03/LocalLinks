@@ -14,7 +14,9 @@
     <div class="row text-center">
       <div>
       <c:if test="${userName != null}">
-          <form action="addToFavorites">
+
+          <form id="addToFavorites" action="addToFavorites" method="get">
+              <input type="hidden" name="message" var="message" value="HELLO WORLD"/>
               <button class="brn btn-success" type="submit" name="submit" value="addFavorite">ADD ALL SELECTED FAVORITES TO DATABASE</button>
           </form>
       </c:if>
@@ -81,8 +83,8 @@
           </div>
 
           <c:if test="${userName != null}">
-
-              <button class="rounded border border-5 btn btn-outline-success col-2" type="submit" name="submit" value="addToFavorites" >
+            <input type="hidden" name="${result.place_id} "value="{place_id = '${result.place_id}'}"/>
+              <button form="addToFavorites" class="rounded border border-5 btn btn-outline-success col-2" type="submit" name="addFavorite" value="no" formaction="addToFavorites" formmethod="post" >
                 <span><i class="fa fa-plus fa-5x"></i></span>
               </button>
 
