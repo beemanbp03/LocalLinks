@@ -46,7 +46,6 @@
                 <h1>${result.name}</h1>
               </div>
 
-
               <div class="col text-end">
                 <a href="${result.url}">
                   <button type="button" name="getDirections" class="btn btn-outline-success m-2">

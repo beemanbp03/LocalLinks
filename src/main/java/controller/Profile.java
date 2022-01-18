@@ -3,6 +3,7 @@ package controller;
 
 import entity.ApiResult;
 import entity.Favorite;
+import entity.User;
 import entity.details.Details;
 import entity.geo.ResultsItem;
 import org.apache.logging.log4j.LogManager;
@@ -18,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,14 +52,15 @@ public class Profile extends HttpServlet implements PropertiesLoader {
         //Load favorites from database and put them in request
         Dao dao = new Dao();
         ApiDao apiDao = new ApiDao();
+        HttpSession session = req.getSession();
 
-        List<Favorite> allFavorites = dao.getAllFavorites();
-        logger.info("allFavorites: " + allFavorites);
+        List<Favorite> userFavorites = dao.getFavoritesByUserId((User) session.getAttribute("user"));
+        logger.info("allFavorites: " + userFavorites);
 
         List<ApiResult> resultList = new ArrayList<>();
 
         //Loop through Favorites array, call the APIs using their methods, then send results array to request
-        for (Favorite item : allFavorites) {
+        for (Favorite item : userFavorites) {
             try {
                 ApiResult result = new ApiResult();
                 Details details = apiDao.getDetails(item.getPlace_id());
