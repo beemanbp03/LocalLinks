@@ -2,7 +2,9 @@ package controller;
 
 import com.google.protobuf.Api;
 import entity.ApiResult;
+import entity.Favorite;
 import entity.HourlyDetails;
+import entity.User;
 import entity.details.Details;
 import entity.geo.*;
 import entity.places.Places;
@@ -10,6 +12,7 @@ import entity.weather.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
+import persistence.Dao;
 import persistence.SessionFactoryProvider;
 import persistence.ApiDao;
 
@@ -19,6 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.annotation.*;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -37,6 +41,7 @@ public class GolfCourseSearch extends HttpServlet {
     private final Logger logger = LogManager.getLogger(this.getClass());
     SessionFactory sessionFactory = SessionFactoryProvider.getSessionFactory();
     ApiDao apiServiceDao = new ApiDao();
+    Dao dao = new Dao();
 
     /**
      * Route to the aws-hosted cognito login page.
@@ -47,6 +52,9 @@ public class GolfCourseSearch extends HttpServlet {
      */
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        //Get all user's Favorites and set it as an attribute to be used on the golfCourseSearch Results Page
+        HttpSession session = req.getSession();
+
 
         //Retrieve the zip code user input from the request
         String zipCodeParam = req.getParameter("zipCodeSearch");
@@ -54,6 +62,7 @@ public class GolfCourseSearch extends HttpServlet {
 
         GeoCode geo = null;
         try {
+            List<Favorite> favorites = dao.getFavoritesByUserId((User)session.getAttribute("user"));
             geo = apiServiceDao.getLatLng(zipCode);
             List<ResultsItem> geoResults = geo.getResults();
             double lat = geoResults.get(0).getGeometry().getLocation().getLat();
@@ -64,7 +73,10 @@ public class GolfCourseSearch extends HttpServlet {
 
             List<entity.places.ResultsItem> placesResults = places.getResults();
             ArrayList<ApiResult> resultsArray = getResultsArray(placesResults);
+
             req.setAttribute("results", resultsArray);
+            req.setAttribute("favorites", favorites);
+
 
         } catch (Exception e) {
             e.printStackTrace();

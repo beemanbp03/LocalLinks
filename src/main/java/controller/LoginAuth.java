@@ -110,7 +110,7 @@ public class LoginAuth extends HttpServlet implements PropertiesLoader {
                 dispatcher.forward(req, resp);
             }
         }
-        RequestDispatcher dispatcher = req.getRequestDispatcher("loginSuccess.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/home");
         dispatcher.forward(req, resp);
 
     }

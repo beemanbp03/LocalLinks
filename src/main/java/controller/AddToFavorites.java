@@ -65,10 +65,34 @@ public class AddToFavorites extends HttpServlet implements PropertiesLoader {
 
         req.setAttribute("result", result);
 
-        String url = "/addFavoritesSuccess.jsp";
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher(url);
-        dispatcher.forward(req, res);
+        String[] urlStrings;
+        String requestHeader = req.getHeader("Referer");
+        if (requestHeader.contains("golfCourseSearchResults")) {
+            urlStrings = requestHeader.split("golfCourseSearchResults");
+            for(String item : urlStrings) {
+                logger.info("STRING" + item.indexOf(item) + ": " + item);
+            }
+        } else {
+            String tempUrlStrings = (String)session.getAttribute("golfCourseSearchURL");
+            urlStrings = tempUrlStrings.split("/golfCourseSearchResults");
+            for(String item : urlStrings) {
+                logger.info("STRING" + item.indexOf(item) + ": " + item);
+            }
+        }
+
+        String url = "/golfCourseSearchResults" + urlStrings[1];
+        session.setAttribute("golfCourseSearchURL", url);
+
+        if (session.getAttribute("golfCourseSearchURL") != null) {
+            RequestDispatcher dispatcher = req.getRequestDispatcher((String)session.getAttribute("golfCourseSearchURL"));
+            dispatcher.forward(req, res);
+        }
+        else {
+            RequestDispatcher dispatcher = req.getRequestDispatcher(url);
+            dispatcher.forward(req, res);
+        }
+
 
     }
 
