@@ -1,6 +1,12 @@
 package controller;
 
 
+
+import entity.Favorite;
+import entity.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import persistence.Dao;
 import util.PropertiesLoader;
 
 import javax.servlet.RequestDispatcher;
@@ -9,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.*;
 
@@ -21,7 +28,9 @@ import java.util.*;
 /**
  * This class adds favorites to the database
  */
-public class DynamicDaoServlet extends HttpServlet implements PropertiesLoader {
+public class AddToFavorites extends HttpServlet implements PropertiesLoader {
+
+    private final Logger logger = LogManager.getLogger(this.getClass());
 
     /**
      *  Handles HTTP GET requests.
@@ -35,25 +44,46 @@ public class DynamicDaoServlet extends HttpServlet implements PropertiesLoader {
             throws IOException, ServletException {
 
         Set<String> paramNameList = new HashSet<>();
-        List<String> attrList = new ArrayList<String>();
+        List<Favorite> attrList = new ArrayList<Favorite>();
+        Favorite result = new Favorite();
+        Dao dao = new Dao();
+        HttpSession session = req.getSession();
+        User user = (User)session.getAttribute("user");
 
         Enumeration<String> requestParameters = (Enumeration<String>)req.getParameterNames();
 
         while (requestParameters.hasMoreElements()) {
-            paramNameList.add((String)requestParameters.nextElement());
+            paramNameList.add(requestParameters.nextElement());
         }
 
         for (String item : paramNameList) {
+            logger.info("Item: " + item);
             String attribute = req.getParameter(item);
-            attrList.add(attribute);
+            result = formatApiResultFromString(attribute, user);
+            dao.insertFavorite(result);
         }
 
-        req.setAttribute("attributeList", attrList);
+        req.setAttribute("result", result);
 
         String url = "/addFavoritesSuccess.jsp";
 
         RequestDispatcher dispatcher = req.getRequestDispatcher(url);
         dispatcher.forward(req, res);
 
+    }
+
+    public Favorite formatApiResultFromString(String item, User user) {
+        Favorite result = new Favorite();
+        String[] stringOfItems = item.split("\u0020");
+
+            result.setUser(user);
+            result.setPlace_id(stringOfItems[0].trim());
+            result.setLat(stringOfItems[1].trim());
+            result.setLng(stringOfItems[2].trim());
+            result.setRating(Double.valueOf(stringOfItems[3].trim()));
+
+            logger.info("String: " + result);
+
+        return result;
     }
 }

@@ -366,7 +366,7 @@ public class Dao {
      * @param userName String representing username to search for
      * @return List of User objects with username of username param
      */
-    public List<User> getUserByUsername(String userName) {
+    public List<User> getUserByUserName(String userName) {
 
         //Create Connection
         Session session = sessionFactory.openSession();

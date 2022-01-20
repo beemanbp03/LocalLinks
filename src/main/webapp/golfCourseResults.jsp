@@ -84,8 +84,7 @@
           </div>
 
           <c:if test="${userName != null}">
-            <input type="hidden" name="result.${result.place_id}" value="${result.place_id}, ${result.lat}, ${result.lng}"/>
-              <button class="rounded border border-5 btn btn-outline-success col-2" type="submit" name="submit">
+              <button class="rounded border border-5 btn btn-outline-success col-2" type="submit" name="result" value="${result.place_id} ${result.lat} ${result.lng} ${result.rating}">
                 <span><i class="fa fa-plus fa-5x"></i></span>
               </button>
 

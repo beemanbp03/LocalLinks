@@ -95,7 +95,7 @@ public class LoginAuth extends HttpServlet implements PropertiesLoader {
                 req.setAttribute("userName", userName);
 
                 //Set User as session variable
-                List<User> users = dao.getUserByUsername(userName);
+                List<User> users = dao.getUserByUserName(userName);
                 User user = users.get(0);
                 session.setAttribute("user", user);
                 logger.info("USER: " + user);

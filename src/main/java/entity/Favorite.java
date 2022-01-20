@@ -157,10 +157,7 @@ public class Favorite {
     public String toString(){
         return
                 "Favorite{" +
-                        "name='" + place_id + '\'' +
-                        "call='" + lat + '\'' +
-                        "vicinity='" + lng + '\'' +
-                        "place_id='" + rating + '\'' +
+                        "place_id='" + place_id + '\'' +
                         "lat='" + lat + '\'' +
                         "lng='" + lng + '\'' +
                         "rating='" + rating + '\'' +

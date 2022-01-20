@@ -60,7 +60,7 @@ public class UserSearch extends HttpServlet {
 
                 } else if (searchTypeUser.equals("user_name")) {
 
-                    req.setAttribute("user", dao.getUserByUsername(searchTermUser));
+                    req.setAttribute("user", dao.getUserByUserName(searchTermUser));
 
                 } else if (searchTypeUser.equals("first_name")) {
 
