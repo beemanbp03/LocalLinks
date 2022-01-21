@@ -26,7 +26,8 @@
       <div class="row justify-content-center">
 
         <!-- Individual Results -->
-
+        <form id="removeFromFavorites">
+        </form>
         <!-- RESULT -->
         <c:forEach var="result" items="${favorites}" varStatus="loop">
         <br />
@@ -83,7 +84,9 @@
 
               <c:if test="${userName != null}">
 
-                <button class="rounded border border-5 btn btn-outline-danger col-2" type="submit" name="submit" value="addToFavorites" >
+                <button form="removeFromFavorites" formaction="removeFromFavorites" formmethod="get"
+                        class="btn btn-outline-danger rounded border border-5 col-2" type="submit" name="result"
+                        value="${result.place_id}">
                   <span><i class="fa fa-minus fa-5x"></i></span>
                 </button>
 

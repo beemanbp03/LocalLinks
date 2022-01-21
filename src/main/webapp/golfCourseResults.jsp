@@ -95,7 +95,7 @@
                     <c:when test="${favoriteExists == true}">
                         <button form="removeFromFavorites" formaction="removeFromFavorites" formmethod="get"
                                 class="btn btn-outline-danger rounded border border-5 col-2" type="submit" name="result"
-                                value="${result.place_id} ${result.lat} ${result.lng} ${result.rating}">
+                                value="${result.place_id}">
                             <span><i class="fa fa-minus fa-5x"></i></span>
                         </button>
                     </c:when>
