@@ -26,19 +26,23 @@
       <br />
       <!-- Choosing the size of the result section based off the ability to add it to your favorites -->
       <c:choose>
+
         <c:when test="${userName != null}">
         <form id="removeFromFavorites">
         </form>
         <form id="addToFavorites">
         </form>
         <div class="container-fluid row justify-content-between mb-4">
-          <div class="rounded border border-5 col-10 justify-content-center">
+            <div class="row justify-content-between">
+                <div class="rounded border border-danger border-5 col-m-10 justify-content-center">
         </c:when>
+
         <c:otherwise>
-        <div class="container-fluid row justify-content-center mb-4">
-          <div class="rounded border border-5 col justify-content-center">
+            <div class="container-fluid row justify-content-center mb-4">
+                <div class="rounded border border-5 col justify-content-center">
         </c:otherwise>
-        </c:choose>
+
+      </c:choose>
 
               <div class="row border-bottom">
                 <div class="col justify-content-start">
@@ -60,7 +64,7 @@
               </div>
 
               <div class="row">
-                <div class="container-fluid col-12">
+                <div class="container-fluid col-12 border">
                   <div class="row text-center">
                     <c:forEach var="item" items="${result.hourlyWeather}" varStatus="loopCount">
                       <c:if test="${loopCount.index > 6 && loopCount.index < 19}">
@@ -116,6 +120,7 @@
           <!-- END RESULT -->
           <br />
           <br />
+          </div>
         </div>
       </div>
       <!-- END Individual Results -->
