@@ -68,10 +68,10 @@
                   <div class="row d-flex justify-content-between">
                     <c:forEach var="item" items="${result.hourlyWeather}" varStatus="loopCount">
                       <c:if test="${loopCount.index > 6 && loopCount.index < 19}">
-                        <div class="col-6 col-sm-3 col-md-2 col-xl-1 border text-center">
-                          <div class="container-fluid">
-                              <div class="row justify-content-center">
-                                  <div>
+                        <div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xxl-1 border">
+
+
+                                  <div class="text-center">
                                       <c:choose>
                                           <c:when test="${loopCount.index < 12}">
                                               <h5>${item.hour}am</h5>
@@ -80,38 +80,14 @@
                                               <h5>${item.hour}pm</h5>
                                           </c:otherwise>
                                       </c:choose>
-                                  </div>
-                              </div>
-                              <div class="row">
-                                  <div class="col">
+
                                       <i><img alt="picture depicting weather" src="${item.icon}" /></i>
                                   </div>
-                              </div>
-                              <div class="row text-center">
-                                  <div class="col-12">
-                                      <p class="border-bottom">Wind</p>
+                                  <div class="text-center text-lg-start">
+                                      <p class="border-bottom">Wind: ${item.windSpeed}mph</p>
+                                      <p class="border-bottom">Rain: ${item.chanceOfRain}%</p>
+                                      <p class="border-bottom">Temp: ${item.temp}F</p>
                                   </div>
-                                  <div class="col-12">
-                                      <p>${item.windSpeed}mph</p>
-                                  </div>
-                              </div>
-                              <div class="row text-center">
-                                  <div class="col-12 mt-2">
-                                      <p class="border-bottom">Rain</p>
-                                  </div>
-                                  <div class="col-12">
-                                      <p>${item.chanceOfRain}%</p>
-                                  </div>
-                              </div>
-                              <div class="row text-center">
-                                  <div class="col-12 mt-2">
-                                      <p class="border-bottom">Temp</p>
-                                  </div>
-                                  <div class="col-12">
-                                      <p>${item.temp}F</p>
-                                  </div>
-                              </div>
-                          </div>
                         </div>
                       </c:if>
 

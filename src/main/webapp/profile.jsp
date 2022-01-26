@@ -34,8 +34,8 @@
         <!-- Choosing the size of the result section based off the ability to add it to your favorites -->
         <c:choose>
         <c:when test="${userName != null}">
-        <div class="container-fluid row justify-content-between mb-4">
-          <div class="rounded border border-5 container-fluid row col-10 justify-content-center">
+        <div class="container-fluid row justify-content-lg-between justify-content-center mb-4">
+          <div class="rounded border border-5 container-fluid row col-12 col-lg-10 justify-content-center">
             </c:when>
             <c:otherwise>
             <div class="container-fluid row justify-content-center mb-4">
@@ -85,7 +85,7 @@
               <c:if test="${userName != null}">
 
                 <button form="removeFromFavorites" formaction="removeFromFavorites" formmethod="get"
-                        class="btn btn-outline-danger rounded border border-5 col-2" type="submit" name="result"
+                        class="btn btn-outline-danger rounded border border-5 col-12 col-lg-2" type="submit" name="result"
                         value="${result.place_id}">
                   <span><i class="fa fa-minus fa-5x"></i></span>
                 </button>
