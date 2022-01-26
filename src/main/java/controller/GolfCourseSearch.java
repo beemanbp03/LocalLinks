@@ -142,40 +142,55 @@ public class GolfCourseSearch extends HttpServlet {
         Weather itemWeather = apiServiceDao.getWeather(itemLat, itemLng);
 
         List<HourItem> hourItems = itemWeather.getForecast().getForecastday().get(0).getHour();
+        logger.info("hourlyItems: " + hourItems);
         List<HourlyDetails> hourlyList = new ArrayList<HourlyDetails>();
         for (HourItem itemHour : hourItems) {
 
             //First, the current hour is retrieved in order to weed out any hours that don't apply
             Date baseDate = Calendar.getInstance().getTime();
+            String baseHour = new SimpleDateFormat("H").format(baseDate);
+            int baseHourInt = Integer.parseInt(baseHour);
 
             HourlyDetails hourlyDetails = new HourlyDetails();
 
             //Convert and format hour
             Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(itemHour.getTime());
-            String hour = new SimpleDateFormat("H:mm").format(date);
-            //Retrieve rest of hourly weather details
-            double tempF = itemHour.getTempF();
-            double humidity = itemHour.getHumidity();
-            String condition = itemHour.getCondition().getText();
-            String icon = itemHour.getCondition().getIcon();
-            double windSpeed = itemHour.getWindMph();
-            int rainYesNo = itemHour.getWillItRain();
-            double precipitation = itemHour.getPrecipIn();
+            String hour = new SimpleDateFormat("h:mm").format(date);
+            String hourForInt = new SimpleDateFormat("H").format(date);
+            int hourInt = Integer.parseInt(hourForInt);
 
-            //Convert all non string details to strings
-            String stringTempF = String.valueOf(tempF);
-            String stringHumidity = String.valueOf(humidity);
-            String stringWindSpeed = String.valueOf(windSpeed);
-            String stringRainYesNo = String.valueOf(rainYesNo);
-            String stringPrecipitation = String.valueOf(precipitation);
+            boolean isLessThanBaseHour = (hourInt < baseHourInt);
+            logger.info("isLess: " + isLessThanBaseHour + "\n" + "baseHourInt: " + baseHourInt + "\n" + "hourInt: " + hourInt);
 
-            //Put all string details into the hourlyDetailsMap
-            hourlyDetails.setHour(hour);
-            hourlyDetails.setIcon(icon);
-            hourlyDetails.setWindSpeed(stringWindSpeed);
-            hourlyDetails.setPrecipitation(stringPrecipitation);
+            //Check hour against current hour and make sure it falls between current hour and current hour +5hr
 
-            hourlyList.add(hourlyDetails);
+                //Retrieve rest of hourly weather details
+                double tempF = itemHour.getTempF();
+                double humidity = itemHour.getHumidity();
+                String condition = itemHour.getCondition().getText();
+                String icon = itemHour.getCondition().getIcon();
+                double windSpeed = itemHour.getWindMph();
+                int rainYesNo = itemHour.getWillItRain();
+                double precipitation = itemHour.getPrecipIn();
+                String chanceOfRain = String.valueOf(itemHour.getChanceOfRain());
+
+                //Convert all non string details to strings
+                String stringTempF = String.valueOf(tempF);
+                String stringHumidity = String.valueOf(humidity);
+                String stringWindSpeed = String.valueOf(windSpeed);
+                String stringRainYesNo = String.valueOf(rainYesNo);
+                String stringPrecipitation = String.valueOf(precipitation);
+
+                //Put all string details into the hourlyDetailsMap
+                hourlyDetails.setHour(hour);
+                hourlyDetails.setIcon(icon);
+                hourlyDetails.setWindSpeed(stringWindSpeed);
+                hourlyDetails.setPrecipitation(stringPrecipitation);
+                hourlyDetails.setChanceOfRain(chanceOfRain);
+                hourlyDetails.setTemp(stringTempF);
+
+                hourlyList.add(hourlyDetails);
+
 
         }
 

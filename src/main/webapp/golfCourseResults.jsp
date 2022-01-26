@@ -69,10 +69,49 @@
                     <c:forEach var="item" items="${result.hourlyWeather}" varStatus="loopCount">
                       <c:if test="${loopCount.index > 6 && loopCount.index < 19}">
                         <div class="col-6 col-sm-3 col-md-2 col-xl-1 border text-center">
-                          <i><img alt="picture depicting weather" src="${item.icon}" /></i>
-                          <p>${item.hour}</p>
-                          <p>${item.windSpeed}mph</p>
-                          <p>${item.precipitation}in.</p>
+                          <div class="container-fluid">
+                              <div class="row justify-content-center">
+                                  <div>
+                                      <c:choose>
+                                          <c:when test="${loopCount.index < 12}">
+                                              <h5>${item.hour}am</h5>
+                                          </c:when>
+                                          <c:otherwise>
+                                              <h5>${item.hour}pm</h5>
+                                          </c:otherwise>
+                                      </c:choose>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col">
+                                      <i><img alt="picture depicting weather" src="${item.icon}" /></i>
+                                  </div>
+                              </div>
+                              <div class="row text-center">
+                                  <div class="col-12">
+                                      <p class="border-bottom">Wind</p>
+                                  </div>
+                                  <div class="col-12">
+                                      <p>${item.windSpeed}mph</p>
+                                  </div>
+                              </div>
+                              <div class="row text-center">
+                                  <div class="col-12 mt-2">
+                                      <p class="border-bottom">Rain</p>
+                                  </div>
+                                  <div class="col-12">
+                                      <p>${item.chanceOfRain}%</p>
+                                  </div>
+                              </div>
+                              <div class="row text-center">
+                                  <div class="col-12 mt-2">
+                                      <p class="border-bottom">Temp</p>
+                                  </div>
+                                  <div class="col-12">
+                                      <p>${item.temp}F</p>
+                                  </div>
+                              </div>
+                          </div>
                         </div>
                       </c:if>
 

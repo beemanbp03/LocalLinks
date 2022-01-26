@@ -16,6 +16,12 @@ public class HourlyDetails {
     @JsonProperty("precipitation")
     private String precipitation;
 
+    @JsonProperty("chanceOfRain")
+    private String chanceOfRain;
+
+    @JsonProperty("temp")
+    private String temp;
+
     public String getWindSpeed() {
         return windSpeed;
     }
@@ -48,6 +54,14 @@ public class HourlyDetails {
         this.icon = icon;
     }
 
+    public String getChanceOfRain() { return chanceOfRain; }
+
+    public void setChanceOfRain(String chanceOfRain) { this.chanceOfRain = chanceOfRain; }
+
+    public String getTemp() { return temp; }
+
+    public void setTemp(String temp) { this.temp = temp; }
+
     @Override
     public String toString(){
         return
@@ -56,6 +70,8 @@ public class HourlyDetails {
                         "icon = '" + icon + '\'' +
                         "windSpeed = '" + windSpeed + '\'' +
                         "precipitation = '" + precipitation + '\'' +
+                        "chanceOfRain = '" + chanceOfRain + '\'' +
+                        "temp = '" + temp + '\'' +
                         "}";
     }
 }
