@@ -52,3 +52,7 @@ fabric.properties
 /src/main/resources/api.properties
 /src/main/resources/cognito.properties
 /src/main/resources/hibernate.cfg.xml
+
+# Test Files and SQL scripts
+test_LocalLinks_favorites.sql
+test_LocalLinks_user.sql
