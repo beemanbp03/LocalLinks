@@ -54,6 +54,7 @@ public class GolfCourseSearch extends HttpServlet {
 
         //Get all user's Favorites and set it as an attribute to be used on the golfCourseSearch Results Page
         HttpSession session = req.getSession();
+        session.setAttribute("returnFromRemove", "searchResults");
 
 
         //Retrieve the zip code user input from the request
@@ -62,7 +63,11 @@ public class GolfCourseSearch extends HttpServlet {
 
         GeoCode geo = null;
         try {
-            List<Favorite> favorites = dao.getFavoritesByUserId((User)session.getAttribute("user"));
+            if (session.getAttribute("userName") != null) {
+                List<Favorite> favorites = dao.getFavoritesByUserId((User)session.getAttribute("user"));
+                session.setAttribute("favorites", favorites);
+            }
+
             geo = apiServiceDao.getLatLng(zipCode);
             List<ResultsItem> geoResults = geo.getResults();
             double lat = geoResults.get(0).getGeometry().getLocation().getLat();
@@ -74,13 +79,15 @@ public class GolfCourseSearch extends HttpServlet {
             List<entity.places.ResultsItem> placesResults = places.getResults();
             ArrayList<ApiResult> resultsArray = getResultsArray(placesResults);
 
+            session.setAttribute("results", resultsArray);
             req.setAttribute("results", resultsArray);
-            req.setAttribute("favorites", favorites);
+
 
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("golfCourseResults.jsp");
         dispatcher.forward(req, resp);

@@ -2,6 +2,7 @@ package controller;
 
 
 
+import entity.ApiResult;
 import entity.Favorite;
 import entity.User;
 import org.apache.logging.log4j.LogManager;
@@ -43,15 +44,17 @@ public class RemoveFromFavorites extends HttpServlet implements PropertiesLoader
     public void doGet(HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
 
+
         Set<String> paramNameList = new HashSet<>();
         Favorite result = new Favorite();
         Dao dao = new Dao();
         HttpSession session = req.getSession();
         User user = (User)session.getAttribute("user");
+        List<Favorite> favorites = dao.getFavoritesByUserId(user);
 
         String attribute = req.getParameter("result");
         logger.info("RESULT: " + result);
-        List<Favorite> favorites = dao.getFavoritesByUserId(user);
+
         for (Favorite favorite : favorites) {
             if (favorite.getPlace_id().equals(attribute)) {
                 result.setId(favorite.getId());
@@ -64,33 +67,48 @@ public class RemoveFromFavorites extends HttpServlet implements PropertiesLoader
         }
         logger.info("FAVORITE: " + result);
         dao.deleteFavorite(result);
+        favorites = dao.getFavoritesByUserId(user);
 
         String url;
-        String[] urlStrings;
         String requestHeader = req.getHeader("Referer");
+        req.setAttribute("results", session.getAttribute("results"));
+        req.setAttribute("favorites", favorites);
+
         logger.info("REQUEST HEADER: " + requestHeader);
         if (requestHeader.contains("golfCourseSearchResults")) {
-            urlStrings = requestHeader.split("golfCourseSearchResults");
-            url = "/golfCourseSearchResults" + urlStrings[1];
-            session.setAttribute("golfCourseSearchURL", url);
+            url = "golfCourseResults.jsp";
 
-            if (session.getAttribute("golfCourseSearchURL") != null) {
-                RequestDispatcher dispatcher = req.getRequestDispatcher((String)session.getAttribute("golfCourseSearchURL"));
-                dispatcher.forward(req, res);
-            }
-            else {
-                RequestDispatcher dispatcher = req.getRequestDispatcher(url);
-                dispatcher.forward(req, res);
-            }
-            for(String item : urlStrings) {
-                logger.info("STRING" + item.indexOf(item) + ": " + item);
-            }
+            String urlStrings = "searchResults";
+            session.setAttribute("returnFromRemove", urlStrings);
+
+            RequestDispatcher dispatcher = req.getRequestDispatcher(url);
+            dispatcher.forward(req, res);
         } else if (requestHeader.contains("profile")){
             url = "/profile";
+
+            String urlStrings = "profile";
+            session.setAttribute("returnFromRemove", urlStrings);
+
             RequestDispatcher dispatcher = req.getRequestDispatcher(url);
             dispatcher.forward(req, res);
         } else if (requestHeader.contains("removeFromFavorites")) {
-            url = "/profile";
+
+            String returnFromRemove = (String)session.getAttribute("returnFromRemove");
+
+            if (returnFromRemove.equals("profile")){
+                url = "/profile";
+            } else if (returnFromRemove.equals("searchResults")){
+                url = "golfCourseResults.jsp";
+            } else {
+                url = "/home";
+            }
+
+            RequestDispatcher dispatcher = req.getRequestDispatcher(url);
+            dispatcher.forward(req, res);
+        } else if (requestHeader.contains("addToFavorites")) {
+
+            url = "golfCourseResults.jsp";
+
             RequestDispatcher dispatcher = req.getRequestDispatcher(url);
             dispatcher.forward(req, res);
         }

@@ -53,6 +53,7 @@ public class Profile extends HttpServlet implements PropertiesLoader {
         Dao dao = new Dao();
         ApiDao apiDao = new ApiDao();
         HttpSession session = req.getSession();
+        session.setAttribute("returnFromRemove", "profile");
 
         List<Favorite> userFavorites = dao.getFavoritesByUserId((User) session.getAttribute("user"));
         logger.info("allFavorites: " + userFavorites);

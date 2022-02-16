@@ -2,6 +2,7 @@ package controller;
 
 
 
+import entity.ApiResult;
 import entity.Favorite;
 import entity.User;
 import org.apache.logging.log4j.LogManager;
@@ -44,11 +45,11 @@ public class AddToFavorites extends HttpServlet implements PropertiesLoader {
             throws IOException, ServletException {
 
         Set<String> paramNameList = new HashSet<>();
-        List<Favorite> attrList = new ArrayList<Favorite>();
         Favorite result = new Favorite();
         Dao dao = new Dao();
         HttpSession session = req.getSession();
         User user = (User)session.getAttribute("user");
+
 
         Enumeration<String> requestParameters = (Enumeration<String>)req.getParameterNames();
 
@@ -62,37 +63,16 @@ public class AddToFavorites extends HttpServlet implements PropertiesLoader {
             result = formatApiResultFromString(attribute, user);
             dao.insertFavorite(result);
         }
+        List<Favorite> favorites = dao.getFavoritesByUserId(user);
 
         req.setAttribute("result", result);
+        req.setAttribute("results", (ArrayList<ApiResult>)session.getAttribute("results"));
+        req.setAttribute("favorites", favorites);
 
+        String url = "golfCourseResults.jsp";
 
-        String[] urlStrings;
-        String requestHeader = req.getHeader("Referer");
-        if (requestHeader.contains("golfCourseSearchResults")) {
-            urlStrings = requestHeader.split("golfCourseSearchResults");
-            for(String item : urlStrings) {
-                logger.info("STRING" + item.indexOf(item) + ": " + item);
-            }
-        } else {
-            String tempUrlStrings = (String)session.getAttribute("golfCourseSearchURL");
-            urlStrings = tempUrlStrings.split("/golfCourseSearchResults");
-            for(String item : urlStrings) {
-                logger.info("STRING" + item.indexOf(item) + ": " + item);
-            }
-        }
-
-        String url = "/golfCourseSearchResults" + urlStrings[1];
-        session.setAttribute("golfCourseSearchURL", url);
-
-        if (session.getAttribute("golfCourseSearchURL") != null) {
-            RequestDispatcher dispatcher = req.getRequestDispatcher((String)session.getAttribute("golfCourseSearchURL"));
-            dispatcher.forward(req, res);
-        }
-        else {
-            RequestDispatcher dispatcher = req.getRequestDispatcher(url);
-            dispatcher.forward(req, res);
-        }
-
+        RequestDispatcher dispatcher = req.getRequestDispatcher(url);
+        dispatcher.forward(req, res);
 
     }
 
