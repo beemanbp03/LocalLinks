@@ -24,6 +24,13 @@ public class ResultsItem{
 	@JsonProperty("place_id")
 	private String placeId;
 
+	@JsonProperty("postcode_localities")
+	private List<String> postcodeLocalities;
+
+	private void setPostcodeLocalities(List<String> postcodeLocalities) { this.postcodeLocalities = postcodeLocalities; }
+
+	private List<String> getPostcodeLocalities() { return postcodeLocalities; }
+
 	public void setFormattedAddress(String formattedAddress){
 		this.formattedAddress = formattedAddress;
 	}
