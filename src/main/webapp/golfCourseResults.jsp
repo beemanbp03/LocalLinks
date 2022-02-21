@@ -35,12 +35,12 @@
         </form>
 
         <div class="row">
-            <div class="rounded border border-5 col-lg-10">
+            <div class="rounded border border-4 col-lg-10">
         </c:when>
 
         <c:otherwise>
         <div class="row">
-            <div class="rounded border border-5 col-12 justify-content-center">
+            <div class="rounded border border-4 col-12 justify-content-center">
         </c:otherwise>
 
     </c:choose>
@@ -111,14 +111,14 @@
                 <c:choose>
                     <c:when test="${favoriteExists == true}">
                         <button form="removeFromFavorites" formaction="removeFromFavorites" formmethod="get"
-                                class="btn btn-outline-danger rounded border border-5 border-danger col-lg-2" type="submit" name="result"
+                                class="btn btn-outline-danger rounded border border-4 border-danger col-lg-2" type="submit" name="result"
                                 value="${result.place_id}">
                             <span><i class="fa fa-minus fa-5x"></i></span>
                         </button>
                     </c:when>
                     <c:when test="${favoriteExists == false}">
                         <button form="addToFavorites" formaction="addToFavorites" formmethod="get"
-                                class="btn btn-outline-success rounded border border-5 border-success col-lg-2" type="submit" name="result"
+                                class="btn btn-outline-success rounded border border-4 border-success col-lg-2" type="submit" name="result"
                                 value="${result.place_id} ${result.lat} ${result.lng} ${result.rating}">
                             <span><i class="fa fa-plus fa-5x"></i></span>
                         </button>
