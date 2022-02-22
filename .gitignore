@@ -48,11 +48,20 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+# SSL Files
+/src/main/.ebextensions
+/src/main/.platform
+
 # Resource Files
 /src/main/resources/api.properties
 /src/main/resources/cognito.properties
 /src/main/resources/hibernate.cfg.xml
 
+
+/src/main/resources/aws-resources/cognito.properties
+/src/main/resources/aws-resources/hibernate.cfg.xml
+
 # Test Files and SQL scripts
 test_LocalLinks_favorites.sql
 test_LocalLinks_user.sql
+dba.sql
