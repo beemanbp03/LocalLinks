@@ -39,7 +39,7 @@ I have provided the DDL to create and insert data into both Favorites and User t
   * Maven
 * Web Services Consumed
   * [Google Places](https://developers.google.com/maps/documentation/places/web-service/search)
-  * [Google geocoding](https://developers.google.com/maps/documentation/geocoding)
+  * [Google Geocoding](https://developers.google.com/maps/documentation/geocoding)
   * [Weather (weatherapi.com)](https://www.weatherapi.com/)
 * CSS
   * Bootstrap 5
